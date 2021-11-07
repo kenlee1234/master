@@ -56,50 +56,50 @@ class HomeView(View):
 
         def build_stats():
             org = (
-                ("dcim.view_site", "Sites", Site.objects.restrict(request.user, 'view').count),
-                ("tenancy.view_tenant", "Tenants", Tenant.objects.restrict(request.user, 'view').count),
+                ("dcim.view_site", "站点", Site.objects.restrict(request.user, 'view').count),
+                ("tenancy.view_tenant", "租户", Tenant.objects.restrict(request.user, 'view').count),
             )
             dcim = (
-                ("dcim.view_rack", "Racks", Rack.objects.restrict(request.user, 'view').count),
-                ("dcim.view_devicetype", "Device Types", DeviceType.objects.restrict(request.user, 'view').count),
-                ("dcim.view_device", "Devices", Device.objects.restrict(request.user, 'view').count),
+                ("dcim.view_rack", "设备托架", Rack.objects.restrict(request.user, 'view').count),
+                ("dcim.view_devicetype", "设备类型", DeviceType.objects.restrict(request.user, 'view').count),
+                ("dcim.view_device", "设备", Device.objects.restrict(request.user, 'view').count),
             )
             ipam = (
-                ("ipam.view_vrf", "VRFs", VRF.objects.restrict(request.user, 'view').count),
-                ("ipam.view_aggregate", "Aggregates", Aggregate.objects.restrict(request.user, 'view').count),
-                ("ipam.view_prefix", "Prefixes", Prefix.objects.restrict(request.user, 'view').count),
-                ("ipam.view_iprange", "IP Ranges", IPRange.objects.restrict(request.user, 'view').count),
-                ("ipam.view_ipaddress", "IP Addresses", IPAddress.objects.restrict(request.user, 'view').count),
-                ("ipam.view_vlan", "VLANs", VLAN.objects.restrict(request.user, 'view').count)
+                ("ipam.view_vrf", "可验证随机公钥密码", VRF.objects.restrict(request.user, 'view').count),
+                ("ipam.view_aggregate", "总计", Aggregate.objects.restrict(request.user, 'view').count),
+                ("ipam.view_prefix", "前缀", Prefix.objects.restrict(request.user, 'view').count),
+                ("ipam.view_iprange", "IP范围", IPRange.objects.restrict(request.user, 'view').count),
+                ("ipam.view_ipaddress", "IP地址", IPAddress.objects.restrict(request.user, 'view').count),
+                ("ipam.view_vlan", "虚拟局域网", VLAN.objects.restrict(request.user, 'view').count)
 
             )
             circuits = (
-                ("circuits.view_provider", "Providers", Provider.objects.restrict(request.user, 'view').count),
-                ("circuits.view_circuit", "Circuits", Circuit.objects.restrict(request.user, 'view').count),
+                ("circuits.view_provider", "供应商", Provider.objects.restrict(request.user, 'view').count),
+                ("circuits.view_circuit", "供应商网络", Circuit.objects.restrict(request.user, 'view').count),
             )
             virtualization = (
-                ("virtualization.view_cluster", "Clusters", Cluster.objects.restrict(request.user, 'view').count),
-                ("virtualization.view_virtualmachine", "Virtual Machines", VirtualMachine.objects.restrict(request.user, 'view').count),
+                ("virtualization.view_cluster", "集群", Cluster.objects.restrict(request.user, 'view').count),
+                ("virtualization.view_virtualmachine", "虚拟机", VirtualMachine.objects.restrict(request.user, 'view').count),
 
             )
             connections = (
-                ("dcim.view_cable", "Cables", Cable.objects.restrict(request.user, 'view').count),
-                ("dcim.view_consoleport", "Console", connected_consoleports.count),
-                ("dcim.view_interface", "Interfaces", connected_interfaces.count),
-                ("dcim.view_powerport", "Power Connections", connected_powerports.count),
+                ("dcim.view_cable", "线缆", Cable.objects.restrict(request.user, 'view').count),
+                ("dcim.view_consoleport", "控制台", connected_consoleports.count),
+                ("dcim.view_interface", "加护", connected_interfaces.count),
+                ("dcim.view_powerport", "电源链接", connected_powerports.count),
             )
             power = (
-                ("dcim.view_powerpanel", "Power Panels", PowerPanel.objects.restrict(request.user, 'view').count),
-                ("dcim.view_powerfeed", "Power Feeds", PowerFeed.objects.restrict(request.user, 'view').count),
+                ("dcim.view_powerpanel", "配电盘", PowerPanel.objects.restrict(request.user, 'view').count),
+                ("dcim.view_powerfeed", "电源供给", PowerFeed.objects.restrict(request.user, 'view').count),
             )
             sections = (
-                ("Organization", org, "domain"),
-                ("IPAM", ipam, "counter"),
-                ("Virtualization", virtualization, "monitor"),
-                ("Inventory", dcim, "server"),
-                ("Connections", connections, "cable-data"),
-                ("Circuits", circuits, "transit-connection-variant"),
-                ("Power", power, "flash"),
+                ("组织", org, "domain"),
+                ("IP管理", ipam, "counter"),
+                ("虚拟化", virtualization, "monitor"),
+                ("清单", dcim, "server"),
+                ("链接", connections, "cable-data"),
+                ("线路", circuits, "transit-connection-variant"),
+                ("电源", power, "flash"),
             )
 
             stats = []
