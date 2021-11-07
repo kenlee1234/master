@@ -284,7 +284,7 @@ POWER_MENU = Menu(
     icon_class='mdi mdi-flash',
     groups=(
         MenuGroup(
-            label='Power',
+            label='电源',
             items=(
                 get_model_item('dcim', 'powerfeed', '电源供给'),
                 get_model_item('dcim', 'powerpanel', '配电盘'),

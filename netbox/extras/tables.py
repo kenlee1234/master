@@ -198,15 +198,15 @@ class ObjectChangeTable(BaseTable):
     )
     action = ChoiceFieldColumn()
     changed_object_type = ContentTypeColumn(
-        verbose_name='Type'
+        verbose_name='类型'
     )
     object_repr = tables.TemplateColumn(
         template_code=OBJECTCHANGE_OBJECT,
-        verbose_name='Object'
+        verbose_name='目标'
     )
     request_id = tables.TemplateColumn(
         template_code=OBJECTCHANGE_REQUEST_ID,
-        verbose_name='Request ID'
+        verbose_name='请求ID'
     )
 
     class Meta(BaseTable.Meta):
