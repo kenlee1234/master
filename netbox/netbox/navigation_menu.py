@@ -88,99 +88,99 @@ def get_model_buttons(app_label, model_name, actions=('add', 'import')):
 #
 
 ORGANIZATION_MENU = Menu(
-    label='Organization',
+    label='组织',
     icon_class='mdi mdi-domain',
     groups=(
         MenuGroup(
-            label='Sites',
+            label='网站',
             items=(
-                get_model_item('dcim', 'site', 'Sites'),
-                get_model_item('dcim', 'region', 'Regions'),
-                get_model_item('dcim', 'sitegroup', 'Site Groups'),
-                get_model_item('dcim', 'location', 'Locations'),
+                get_model_item('dcim', 'site', '站点'),
+                get_model_item('dcim', 'region', '范围'),
+                get_model_item('dcim', 'sitegroup', '站点分组'),
+                get_model_item('dcim', 'location', '地址'),
             ),
         ),
         MenuGroup(
-            label='Racks',
+            label='架构',
             items=(
-                get_model_item('dcim', 'rack', 'Racks'),
-                get_model_item('dcim', 'rackrole', 'Rack Roles'),
-                get_model_item('dcim', 'rackreservation', 'Reservations'),
+                get_model_item('dcim', 'rack', '架构'),
+                get_model_item('dcim', 'rackrole', '架构规则'),
+                get_model_item('dcim', 'rackreservation', '保留'),
                 MenuItem(
                     link='dcim:rack_elevation_list',
-                    link_text='Elevations',
+                    link_text='迭代',
                     permissions=['dcim.view_rack']
                 ),
             ),
         ),
         MenuGroup(
-            label='Tenancy',
+            label='租户',
             items=(
-                get_model_item('tenancy', 'tenant', 'Tenants'),
-                get_model_item('tenancy', 'tenantgroup', 'Tenant Groups'),
+                get_model_item('tenancy', 'tenant', '租户'),
+                get_model_item('tenancy', 'tenantgroup', '租户分组'),
             ),
         ),
     ),
 )
 
 DEVICES_MENU = Menu(
-    label='Devices',
+    label='设备',
     icon_class='mdi mdi-server',
     groups=(
         MenuGroup(
-            label='Devices',
+            label='设备',
             items=(
-                get_model_item('dcim', 'device', 'Devices'),
-                get_model_item('dcim', 'devicerole', 'Device Roles'),
-                get_model_item('dcim', 'platform', 'Platforms'),
-                get_model_item('dcim', 'virtualchassis', 'Virtual Chassis'),
+                get_model_item('dcim', 'device', '设备'),
+                get_model_item('dcim', 'devicerole', '设备规则'),
+                get_model_item('dcim', 'platform', '平台'),
+                get_model_item('dcim', 'virtualchassis', '虚拟机箱'),
             ),
         ),
         MenuGroup(
-            label='Device Types',
+            label='设备类型',
             items=(
-                get_model_item('dcim', 'devicetype', 'Device Types'),
-                get_model_item('dcim', 'manufacturer', 'Manufacturers'),
+                get_model_item('dcim', 'devicetype', '设备类型'),
+                get_model_item('dcim', 'manufacturer', '制造商'),
             ),
         ),
         MenuGroup(
-            label='Device Components',
+            label='设备组成',
             items=(
-                get_model_item('dcim', 'interface', 'Interfaces', actions=['import']),
-                get_model_item('dcim', 'frontport', 'Front Ports', actions=['import']),
-                get_model_item('dcim', 'rearport', 'Rear Ports', actions=['import']),
-                get_model_item('dcim', 'consoleport', 'Console Ports', actions=['import']),
-                get_model_item('dcim', 'consoleserverport', 'Console Server Ports', actions=['import']),
-                get_model_item('dcim', 'powerport', 'Power Ports', actions=['import']),
-                get_model_item('dcim', 'poweroutlet', 'Power Outlets', actions=['import']),
-                get_model_item('dcim', 'devicebay', 'Device Bays', actions=['import']),
-                get_model_item('dcim', 'inventoryitem', 'Inventory Items', actions=['import']),
+                get_model_item('dcim', 'interface', '交互', actions=['import']),
+                get_model_item('dcim', 'frontport', '前段端口', actions=['import']),
+                get_model_item('dcim', 'rearport', '后端端口', actions=['import']),
+                get_model_item('dcim', 'consoleport', '控制台端口', actions=['import']),
+                get_model_item('dcim', 'consoleserverport', '控制台服务端口', actions=['import']),
+                get_model_item('dcim', 'powerport', '电源端口', actions=['import']),
+                get_model_item('dcim', 'poweroutlet', '电源插座', actions=['import']),
+                get_model_item('dcim', 'devicebay', '设备托架', actions=['import']),
+                get_model_item('dcim', 'inventoryitem', '库存物品', actions=['import']),
             ),
         ),
     ),
 )
 
 CONNECTIONS_MENU = Menu(
-    label='Connections',
+    label='链接',
     icon_class='mdi mdi-ethernet',
     groups=(
         MenuGroup(
-            label='Connections',
+            label='链接',
             items=(
-                get_model_item('dcim', 'cable', 'Cables', actions=['import']),
+                get_model_item('dcim', 'cable', '线缆', actions=['import']),
                 MenuItem(
                     link='dcim:interface_connections_list',
-                    link_text='Interface Connections',
+                    link_text='交互链接',
                     permissions=['dcim.view_interface']
                 ),
                 MenuItem(
                     link='dcim:console_connections_list',
-                    link_text='Console Connections',
+                    link_text='控制台链接',
                     permissions=['dcim.view_consoleport']
                 ),
                 MenuItem(
                     link='dcim:power_connections_list',
-                    link_text='Power Connections',
+                    link_text='电源链接',
                     permissions=['dcim.view_powerport']
                 ),
             ),
@@ -189,150 +189,150 @@ CONNECTIONS_MENU = Menu(
 )
 
 IPAM_MENU = Menu(
-    label='IPAM',
+    label='IP管理',
     icon_class='mdi mdi-counter',
     groups=(
         MenuGroup(
-            label='IP Addresses',
+            label='IP地址',
             items=(
-                get_model_item('ipam', 'ipaddress', 'IP Addresses'),
-                get_model_item('ipam', 'iprange', 'IP Ranges'),
+                get_model_item('ipam', 'ipaddress', 'IP地址'),
+                get_model_item('ipam', 'iprange', 'IP范围'),
             ),
         ),
         MenuGroup(
-            label='Prefixes',
+            label='前缀',
             items=(
-                get_model_item('ipam', 'prefix', 'Prefixes'),
-                get_model_item('ipam', 'role', 'Prefix & VLAN Roles'),
+                get_model_item('ipam', 'prefix', '前缀'),
+                get_model_item('ipam', 'role', '前缀和VLAN规则'),
             ),
         ),
         MenuGroup(
-            label='Aggregates',
+            label='聚合',
             items=(
-                get_model_item('ipam', 'aggregate', 'Aggregates'),
-                get_model_item('ipam', 'rir', 'RIRs'),
+                get_model_item('ipam', 'aggregate', '聚合'),
+                get_model_item('ipam', 'rir', '区域注册管理'),
             ),
         ),
         MenuGroup(
-            label='VRFs',
+            label='可验证随机公钥密码',
             items=(
-                get_model_item('ipam', 'vrf', 'VRFs'),
-                get_model_item('ipam', 'routetarget', 'Route Targets'),
+                get_model_item('ipam', 'vrf', '可验证随机公钥密码'),
+                get_model_item('ipam', 'routetarget', '路由目标'),
             ),
         ),
         MenuGroup(
-            label='VLANs',
+            label='虚拟局域网',
             items=(
-                get_model_item('ipam', 'vlan', 'VLANs'),
-                get_model_item('ipam', 'vlangroup', 'VLAN Groups'),
+                get_model_item('ipam', 'vlan', '虚拟局域网'),
+                get_model_item('ipam', 'vlangroup', '虚拟局域网分组'),
             ),
         ),
         MenuGroup(
-            label='Services',
+            label='服务',
             items=(
-                get_model_item('ipam', 'service', 'Services', actions=['import']),
+                get_model_item('ipam', 'service', '服务', actions=['import']),
             ),
         ),
     ),
 )
 
 VIRTUALIZATION_MENU = Menu(
-    label='Virtualization',
+    label='虚拟化',
     icon_class='mdi mdi-monitor',
     groups=(
         MenuGroup(
             label='Virtual Machines',
             items=(
-                get_model_item('virtualization', 'virtualmachine', 'Virtual Machines'),
-                get_model_item('virtualization', 'vminterface', 'Interfaces', actions=['import']),
+                get_model_item('virtualization', 'virtualmachine', '虚拟机'),
+                get_model_item('virtualization', 'vminterface', '交互', actions=['import']),
             ),
         ),
         MenuGroup(
-            label='Clusters',
+            label='集群',
             items=(
-                get_model_item('virtualization', 'cluster', 'Clusters'),
-                get_model_item('virtualization', 'clustertype', 'Cluster Types'),
-                get_model_item('virtualization', 'clustergroup', 'Cluster Groups'),
+                get_model_item('virtualization', 'cluster', '集群'),
+                get_model_item('virtualization', 'clustertype', '集群类型'),
+                get_model_item('virtualization', 'clustergroup', '集群分组'),
             ),
         ),
     ),
 )
 
 CIRCUITS_MENU = Menu(
-    label='Circuits',
+    label='线路',
     icon_class='mdi mdi-transit-connection-variant',
     groups=(
         MenuGroup(
-            label='Circuits',
+            label='线路',
             items=(
-                get_model_item('circuits', 'circuit', 'Circuits'),
-                get_model_item('circuits', 'circuittype', 'Circuit Types'),
+                get_model_item('circuits', 'circuit', '线路'),
+                get_model_item('circuits', 'circuittype', '线路类型'),
             ),
         ),
         MenuGroup(
-            label='Providers',
+            label='供应商',
             items=(
-                get_model_item('circuits', 'provider', 'Providers'),
-                get_model_item('circuits', 'providernetwork', 'Provider Networks'),
+                get_model_item('circuits', 'provider', '供应商'),
+                get_model_item('circuits', 'providernetwork', '供应商网络'),
             ),
         ),
     ),
 )
 
 POWER_MENU = Menu(
-    label='Power',
+    label='电源',
     icon_class='mdi mdi-flash',
     groups=(
         MenuGroup(
             label='Power',
             items=(
-                get_model_item('dcim', 'powerfeed', 'Power Feeds'),
-                get_model_item('dcim', 'powerpanel', 'Power Panels'),
+                get_model_item('dcim', 'powerfeed', '电源供给'),
+                get_model_item('dcim', 'powerpanel', '配电盘'),
             ),
         ),
     ),
 )
 
 OTHER_MENU = Menu(
-    label='Other',
+    label='其他',
     icon_class='mdi mdi-notification-clear-all',
     groups=(
         MenuGroup(
-            label='Logging',
+            label='日志',
             items=(
-                get_model_item('extras', 'journalentry', 'Journal Entries', actions=[]),
-                get_model_item('extras', 'objectchange', 'Change Log', actions=[]),
+                get_model_item('extras', 'journalentry', '分录', actions=[]),
+                get_model_item('extras', 'objectchange', '变更日志', actions=[]),
             ),
         ),
         MenuGroup(
-            label='Customization',
+            label='个性化',
             items=(
-                get_model_item('extras', 'customfield', 'Custom Fields'),
-                get_model_item('extras', 'customlink', 'Custom Links'),
-                get_model_item('extras', 'exporttemplate', 'Export Templates'),
+                get_model_item('extras', 'customfield', '自定义字段'),
+                get_model_item('extras', 'customlink', '自定义链接'),
+                get_model_item('extras', 'exporttemplate', '导出模板'),
             ),
         ),
         MenuGroup(
-            label='Integrations',
+            label='交互',
             items=(
-                get_model_item('extras', 'webhook', 'Webhooks'),
+                get_model_item('extras', 'webhook', '微服务API'),
                 MenuItem(
                     link='extras:report_list',
-                    link_text='Reports',
+                    link_text='报告',
                     permissions=['extras.view_report']
                 ),
                 MenuItem(
                     link='extras:script_list',
-                    link_text='Scripts',
+                    link_text='脚本',
                     permissions=['extras.view_script']
                 ),
             ),
         ),
         MenuGroup(
-            label='Other',
+            label='其他',
             items=(
-                get_model_item('extras', 'tag', 'Tags'),
-                get_model_item('extras', 'configcontext', 'Config Contexts', actions=['add']),
+                get_model_item('extras', 'tag', '标签'),
+                get_model_item('extras', 'configcontext', '配置内容', actions=['add']),
             ),
         ),
     ),
