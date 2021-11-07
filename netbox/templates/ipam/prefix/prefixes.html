@@ -1,0 +1,23 @@
+{% extends 'ipam/prefix/base.html' %}
+{% load helpers %}
+{% load static %}
+
+{% block extra_controls %}
+  {% include 'ipam/inc/toggle_available.html' %}
+  {% if perms.ipam.add_prefix and first_available_prefix %}
+    <a href="{% url 'ipam:prefix_add' %}?prefix={{ first_available_prefix }}&vrf={{ object.vrf.pk }}&site={{ object.site.pk }}&tenant_group={{ object.tenant.group.pk }}&tenant={{ object.tenant.pk }}" class="btn btn-sm btn-success">
+      <i class="mdi mdi-plus-thick" aria-hidden="true"></i> Add Prefix
+    </a>
+  {% endif %}
+  {{ block.super }}
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col col-md-12">
+      {% include 'inc/table_controls.html' with table_modal="PrefixTable_config" %}
+      {% include 'utilities/obj_table.html' with heading='Child Prefixes' bulk_edit_url='ipam:prefix_bulk_edit' bulk_delete_url='ipam:prefix_bulk_delete' parent=prefix %}
+    </div>
+  </div>
+  {% table_config_form table table_name="PrefixTable" %}
+{% endblock %}

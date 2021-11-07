@@ -1,0 +1,69 @@
+{% extends 'generic/object.html' %}
+{% load helpers %}
+{% load plugins %}
+
+{% block content %}
+<div class="row mb-3">
+	<div class="col col-md-6">
+    <div class="card">
+      <h5 class="card-header">
+        RIR
+      </h5>
+      <div class="card-body">
+        <table class="table table-hover attr-table">
+          <tr>
+            <th scope="row">Name</th>
+            <td>{{ object.name }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Description</th>
+            <td>{{ object.description|placeholder }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Private</th>
+            <td>
+              {% if object.is_private %}
+                <i class="mdi mdi-check-bold text-success" title="Yes"></i>
+              {% else %}
+                <i class="mdi mdi-close-thick text-danger" title="No"></i>
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Aggregates</th>
+            <td>
+              <a href="{% url 'ipam:aggregate_list' %}?rir_id={{ object.pk }}">{{ aggregates_table.rows|length }}</a>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    {% plugin_left_page object %}
+	</div>
+	<div class="col col-md-6">
+    {% include 'inc/custom_fields_panel.html' %}
+    {% plugin_right_page object %}
+  </div>
+</div>
+<div class="row mb-3">
+	<div class="col col-md-12">
+    <div class="card">
+      <h5 class="card-header">
+        Aggregates
+      </h5>
+      <div class="card-body">
+        {% include 'inc/table.html' with table=aggregates_table %}
+      </div>
+      {% if perms.ipam.add_aggregate %}
+        <div class="card-footer text-end noprint">
+          <a href="{% url 'ipam:aggregate_add' %}?rir={{ object.pk }}" class="btn btn-sm btn-primary">
+            <span class="mdi mdi-plus-thick" aria-hidden="true"></span> Add Aggregate
+          </a>
+        </div>
+      {% endif %}
+    </div>
+    {% include 'inc/paginator.html' with paginator=aggregates_table.paginator page=aggregates_table.page %}
+    {% plugin_full_width_page object %}
+  </div>
+</div>
+{% endblock %}

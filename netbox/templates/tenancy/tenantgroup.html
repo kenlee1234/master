@@ -1,0 +1,76 @@
+{% extends 'generic/object.html' %}
+{% load helpers %}
+{% load plugins %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% for tenantgroup in object.get_ancestors %}
+    <li class="breadcrumb-item"><a href="{% url 'tenancy:tenantgroup_list' %}?parent_id={{ tenantgroup.pk }}">{{ tenantgroup }}</a></li>
+  {% endfor %}
+{% endblock %}
+
+{% block content %}
+<div class="row mb-3">
+	<div class="col col-md-6">
+    <div class="card">
+      <h5 class="card-header">
+        Tenant Group
+      </h5>
+      <div class="card-body">
+        <table class="table table-hover attr-table">
+          <tr>
+            <th scope="row">Name</th>
+            <td>{{ object.name }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Description</th>
+            <td>{{ object.description|placeholder }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Parent</th>
+            <td>
+              {% if object.parent %}
+                <a href="{{ object.parent.get_absolute_url }}">{{ object.parent }}</a>
+              {% else %}
+                <span class="text-muted">&mdash;</span>
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Tenants</th>
+            <td>
+              <a href="{% url 'tenancy:tenant_list' %}?group_id={{ object.pk }}">{{ tenants_table.rows|length }}</a>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    {% plugin_left_page object %}
+  </div>
+	<div class="col col-md-6">
+    {% include 'inc/custom_fields_panel.html' %}
+    {% plugin_right_page object %}
+	</div>
+</div>
+<div class="row mb-3">
+	<div class="col col-md-12">
+    <div class="card">
+      <div class="card-header">
+        Tenants
+      </div>
+      <div class="card-body">
+        {% include 'inc/table.html' with table=tenants_table %}
+      </div>
+      {% if perms.tenancy.add_tenant %}
+        <div class="card-footer text-end noprint">
+          <a href="{% url 'tenancy:tenant_add' %}?group={{ object.pk }}" class="btn btn-sm btn-primary">
+            <span class="mdi mdi-plus-thick" aria-hidden="true"></span> Add Tenant
+          </a>
+        </div>
+      {% endif %}
+      </div>
+      {% include 'inc/paginator.html' with paginator=tenants_table.paginator page=tenants_table.page %}
+      {% plugin_full_width_page object %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'generic/object.html' %}
+{% load buttons %}
+{% load helpers %}
+{% load perms %}
+{% load plugins %}
+
+{% block content %}
+    <div class="row">
+        <div class="col col-md-6">
+            <div class="card">
+                <h5 class="card-header">
+                    Cable
+                </h5>
+                <div class="card-body">
+                    <table class="table table-hover attr-table">
+                        <tr>
+                            <th scope="row">Type</th>
+                            <td>{{ object.get_type_display|placeholder }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Status</th>
+                            <td>
+                                <span class="badge bg-{{ object.get_status_class }}">{{ object.get_status_display }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Label</th>
+                            <td>{{ object.label|placeholder }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Color</th>
+                            <td>
+                                {% if object.color %}
+                                    <span class="color-label" style="background-color: #{{ object.color }}">&nbsp;</span>
+                                {% else %}
+                                    <span class="text-muted">&mdash;</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Length</th>
+                            <td>
+                                {% if object.length %}
+                                    {{ object.length|floatformat }} {{ object.get_length_unit_display }}
+                                {% else %}
+                                    <span class="text-muted">&mdash;</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            {% include 'inc/custom_fields_panel.html' %}
+            {% include 'extras/inc/tags_panel.html' with tags=object.tags.all url='dcim:cable_list' %}
+            {% plugin_left_page object %}
+        </div>
+        <div class="col col-md-6">
+            <div class="card">
+                <h5 class="card-header">
+                    Termination A
+                </h5>
+                <div class="card-body">
+                {% include 'dcim/inc/cable_termination.html' with termination=object.termination_a %}
+                </div>
+            </div>
+            <div class="card">
+                <h5 class="card-header">
+                    Termination B
+                </h5>
+                <div class="card-body">
+                {% include 'dcim/inc/cable_termination.html' with termination=object.termination_b %}
+                </div>
+            </div>
+            {% plugin_right_page object %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-md-12">
+            {% plugin_full_width_page object %}
+        </div>
+    </div>
+{% endblock %}

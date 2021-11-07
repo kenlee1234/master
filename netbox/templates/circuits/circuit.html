@@ -1,0 +1,84 @@
+{% extends 'generic/object.html' %}
+{% load helpers %}
+{% load plugins %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  <li class="breadcrumb-item"><a href="{% url 'circuits:circuit_list' %}?provider_id={{ object.provider.pk }}">{{ object.provider }}</a></li>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+	<div class="col col-md-6">
+        <div class="card">
+            <h5 class="card-header">
+                Circuit
+            </h5>
+            <div class="card-body">
+                <table class="table table-hover attr-table">
+                    <tr>
+                        <th scope="row">Provider</th>
+                        <td>
+                            <a href="{{ object.provider.get_absolute_url }}">{{ object.provider }}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Circuit ID</th>
+                        <td>{{ object.cid }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Type</th>
+                        <td><a href="{{ object.type.get_absolute_url }}">{{ object.type }}</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Status</th>
+                        <td>
+                            <span class="badge bg-{{ object.get_status_class }}">{{ object.get_status_display }}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Tenant</th>
+                        <td>
+                            {% if object.tenant %}
+                                {% if object.tenant.group %}
+                                    <a href="{{ object.tenant.group.get_absolute_url }}">{{ object.tenant.group }}</a> /
+                                {% endif %}
+                                <a href="{{ object.tenant.get_absolute_url }}">{{ object.tenant }}</a>
+                            {% else %}
+                                <span class="text-muted">None</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Install Date</th>
+                        <td>{{ object.install_date|annotated_date|placeholder }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Commit Rate</th>
+                        <td>{{ object.commit_rate|humanize_speed|placeholder }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Description</th>
+                        <td>{{ object.description|placeholder }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        {% include 'inc/custom_fields_panel.html' %}
+        {% include 'extras/inc/tags_panel.html' with tags=object.tags.all url='circuits:circuit_list' %}
+        {% include 'inc/comments_panel.html' %}
+        {% plugin_left_page object %}
+	</div>
+	<div class="col col-md-6">
+        {% include 'circuits/inc/circuit_termination.html' with termination=object.termination_a side='A' %}
+        {% include 'circuits/inc/circuit_termination.html' with termination=object.termination_z side='Z' %}
+        {% include 'inc/image_attachments_panel.html' %}
+        {% plugin_right_page object %}
+    </div>
+</div>
+<div class="row">
+    <div class="col col-md-12">
+        {% plugin_full_width_page object %}
+    </div>
+</div>
+{% endblock %}

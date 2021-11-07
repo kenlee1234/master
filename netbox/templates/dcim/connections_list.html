@@ -1,0 +1,34 @@
+{% extends 'generic/object_list.html' %}
+{% load buttons %}
+{% load helpers %}
+{% load render_table from django_tables2 %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content-wrapper %}
+  <div class="tab-content">
+
+    {# Conncetions list #}
+    <div class="tab-pane show active" id="object-list" role="tabpanel" aria-labelledby="object-list-tab">
+      {% include 'inc/table_controls.html' %}
+
+      <div class="card">
+        <div class="card-body">
+          <div class="table-responsive">
+            {% render_table table 'inc/table.html' %}
+          </div>
+        </div>
+      </div>
+
+      {% include 'inc/paginator.html' with paginator=table.paginator page=table.page %}
+    </div>
+
+    {# Filter form #}
+    {% if filter_form %}
+      <div class="tab-pane show" id="filters-form" role="tabpanel" aria-labelledby="filters-form-tab">
+        {% include 'inc/filter_list.html' %}
+      </div>
+    {% endif %}
+
+  </div>
+{% endblock content-wrapper %}
