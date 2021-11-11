@@ -211,7 +211,7 @@ class ObjectChangeTable(BaseTable):
 
     class Meta(BaseTable.Meta):
         model = ObjectChange
-        fields = ('time', 'user_name', 'action', 'changed_object_type', 'object_repr', 'request_id')
+        fields = ('time', '用户名', 'action', 'changed_object_type', 'object_repr', 'request_id')
 
 
 class ObjectJournalTable(BaseTable):
