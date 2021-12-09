@@ -35,10 +35,14 @@ VMINTERFACE_BUTTONS = """
 class ClusterTypeTable(BaseTable):
     pk = ToggleColumn()
     name = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='名称'
     )
     cluster_count = tables.Column(
-        verbose_name='Clusters'
+        verbose_name='集群数量'
+    )
+    description = tables.Column(
+        verbose_name='描述'
     )
     actions = ButtonsColumn(ClusterType)
 
@@ -55,10 +59,14 @@ class ClusterTypeTable(BaseTable):
 class ClusterGroupTable(BaseTable):
     pk = ToggleColumn()
     name = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='名称'
     )
     cluster_count = tables.Column(
-        verbose_name='Clusters'
+        verbose_name='集群数量'
+    )
+    description = tables.Column(
+        verbose_name='描述'
     )
     actions = ButtonsColumn(ClusterGroup)
 
@@ -75,23 +83,32 @@ class ClusterGroupTable(BaseTable):
 class ClusterTable(BaseTable):
     pk = ToggleColumn()
     name = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='名称'
+    )
+    type = tables.Column(
+        verbose_name='类型'
+    )
+    group = tables.Column(
+        verbose_name='群组'
     )
     tenant = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='租户'
     )
     site = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='站点'
     )
     device_count = LinkedCountColumn(
         viewname='dcim:device_list',
         url_params={'cluster_id': 'pk'},
-        verbose_name='Devices'
+        verbose_name='装置列表'
     )
     vm_count = LinkedCountColumn(
         viewname='virtualization:virtualmachine_list',
         url_params={'cluster_id': 'pk'},
-        verbose_name='VMs'
+        verbose_name='虚拟机列表'
     )
     comments = MarkdownColumn()
     tags = TagColumn(
@@ -111,14 +128,31 @@ class ClusterTable(BaseTable):
 class VirtualMachineTable(BaseTable):
     pk = ToggleColumn()
     name = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='名称'
     )
-    status = ChoiceFieldColumn()
+    status = ChoiceFieldColumn(
+        verbose_name='状态'
+    )
     cluster = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='集群'
     )
-    role = ColoredLabelColumn()
-    tenant = TenantColumn()
+    role = ColoredLabelColumn(
+        verbose_name='角色'
+    )
+    tenant = TenantColumn(
+        verbose_name='租户'
+    )
+    vcpus = tables.Column(
+        verbose_name='虚拟中央处理器'
+    )
+    memory = tables.Column(
+        verbose_name='内存（MB）'
+    )
+    disk = tables.Column(
+        verbose_name='磁盘（GB）'
+    )
     comments = MarkdownColumn()
     primary_ip4 = tables.Column(
         linkify=True,
@@ -131,7 +165,7 @@ class VirtualMachineTable(BaseTable):
     primary_ip = tables.Column(
         linkify=True,
         order_by=PRIMARY_IP_ORDERING,
-        verbose_name='IP Address'
+        verbose_name='IP地址'
     )
     tags = TagColumn(
         url_name='virtualization:virtualmachine_list'
@@ -155,13 +189,22 @@ class VirtualMachineTable(BaseTable):
 class VMInterfaceTable(BaseInterfaceTable):
     pk = ToggleColumn()
     virtual_machine = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='虚拟机'
     )
     name = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='名称'
+    )
+    enabled = tables.Column(
+        verbose_name='已启用'
     )
     parent = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='父接口'
+    )
+    description = tables.Column(
+        verbose_name='描述'
     )
     tags = TagColumn(
         url_name='virtualization:vminterface_list'

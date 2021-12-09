@@ -75,15 +75,19 @@ VRF_LINK = """
 class RIRTable(BaseTable):
     pk = ToggleColumn()
     name = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='名称'
     )
     is_private = BooleanColumn(
-        verbose_name='Private'
+        verbose_name='私有'
     )
     aggregate_count = LinkedCountColumn(
         viewname='ipam:aggregate_list',
         url_params={'rir_id': 'pk'},
-        verbose_name='Aggregates'
+        verbose_name='聚合列表'
+    )
+    description = tables.Column(
+        verbose_name='描述'
     )
     actions = ButtonsColumn(RIR)
 
@@ -99,21 +103,30 @@ class RIRTable(BaseTable):
 
 class AggregateTable(BaseTable):
     pk = ToggleColumn()
+    rir = tables.Column(
+        verbose_name='区域互联网注册管理机构'
+    )
     prefix = tables.Column(
         linkify=True,
-        verbose_name='Aggregate'
+        verbose_name='聚合'
     )
-    tenant = TenantColumn()
+    tenant = TenantColumn(
+        verbose_name='租户'
+    )
     date_added = tables.DateColumn(
         format="Y-m-d",
-        verbose_name='Added'
+        verbose_name='新增日期'
     )
     child_count = tables.Column(
-        verbose_name='Prefixes'
+        verbose_name='前缀列表'
     )
     utilization = UtilizationColumn(
         accessor='get_utilization',
-        orderable=False
+        orderable=False,
+        verbose_name='使用率'
+    )
+    description = tables.Column(
+        verbose_name='描述'
     )
     tags = TagColumn(
         url_name='ipam:aggregate_list'
@@ -132,17 +145,21 @@ class AggregateTable(BaseTable):
 class RoleTable(BaseTable):
     pk = ToggleColumn()
     name = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='名称'
     )
     prefix_count = LinkedCountColumn(
         viewname='ipam:prefix_list',
         url_params={'role_id': 'pk'},
-        verbose_name='Prefixes'
+        verbose_name='前缀列表'
     )
     vlan_count = LinkedCountColumn(
         viewname='ipam:vlan_list',
         url_params={'role_id': 'pk'},
-        verbose_name='VLANs'
+        verbose_name='虚拟局域网列表'
+    )
+    description = tables.Column(
+        verbose_name='描述'
     )
     actions = ButtonsColumn(Role)
 
@@ -175,7 +192,8 @@ class PrefixTable(BaseTable):
     pk = ToggleColumn()
     prefix = tables.TemplateColumn(
         template_code=PREFIX_LINK,
-        attrs={'td': {'class': 'text-nowrap'}}
+        attrs={'td': {'class': 'text-nowrap'}},
+        verbose_name='前缀'
     )
     prefix_flat = tables.TemplateColumn(
         template_code=PREFIXFLAT_LINK,
@@ -193,25 +211,30 @@ class PrefixTable(BaseTable):
             'vrf_id': 'vrf_id',
             'within': 'prefix',
         },
-        verbose_name='Children'
+        verbose_name='子前缀列表'
     )
     status = ChoiceFieldColumn(
-        default=AVAILABLE_LABEL
+        default=AVAILABLE_LABEL,
+        verbose_name='状态'
     )
     vrf = tables.TemplateColumn(
         template_code=VRF_LINK,
-        verbose_name='VRF'
+        verbose_name='虚拟路由和转发'
     )
-    tenant = TenantColumn()
+    tenant = TenantColumn(
+        verbose_name='租户'
+    )
     site = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='站点'
     )
     vlan = tables.Column(
         linkify=True,
-        verbose_name='VLAN'
+        verbose_name='虚拟局域网'
     )
     role = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='角色'
     )
     is_pool = BooleanColumn(
         verbose_name='Pool'
@@ -221,7 +244,11 @@ class PrefixTable(BaseTable):
     )
     utilization = PrefixUtilizationColumn(
         accessor='get_utilization',
-        orderable=False
+        orderable=False,
+        verbose_name='使用率'
+    )
+    description = tables.Column(
+        verbose_name='描述'
     )
     tags = TagColumn(
         url_name='ipam:prefix_list'
@@ -244,22 +271,37 @@ class PrefixTable(BaseTable):
 #
 # IP ranges
 #
+
 class IPRangeTable(BaseTable):
     pk = ToggleColumn()
     start_address = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='起始地址'
+    )
+    end_address = tables.Column(
+        verbose_name='结束地址'
+    )
+    size = tables.Column(
+        verbose_name='大小'
     )
     vrf = tables.TemplateColumn(
         template_code=VRF_LINK,
-        verbose_name='VRF'
+        verbose_name='虚拟路由和转发'
     )
     status = ChoiceFieldColumn(
-        default=AVAILABLE_LABEL
+        default=AVAILABLE_LABEL,
+        verbose_name='状态'
     )
     role = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='角色'
     )
-    tenant = TenantColumn()
+    tenant = TenantColumn(
+        verbose_name='租户'
+    )
+    description = tables.Column(
+        verbose_name='描述'
+    )
     utilization = UtilizationColumn(
         accessor='utilization',
         orderable=False
@@ -284,20 +326,32 @@ class IPRangeTable(BaseTable):
 #
 
 class IPAddressTable(BaseTable):
+    
     pk = ToggleColumn()
     address = tables.TemplateColumn(
         template_code=IPADDRESS_LINK,
-        verbose_name='IP Address'
+        verbose_name='IP地址'
     )
     vrf = tables.TemplateColumn(
         template_code=VRF_LINK,
-        verbose_name='VRF'
+        verbose_name='虚拟路由和转发'
     )
     status = ChoiceFieldColumn(
-        default=AVAILABLE_LABEL
+        default=AVAILABLE_LABEL,
+        verbose_name='状态'
     )
-    role = ChoiceFieldColumn()
-    tenant = TenantColumn()
+    role = ChoiceFieldColumn(
+        verbose_name='角色'
+    )
+    tenant = TenantColumn(
+        verbose_name='租户'
+    )
+    dns_name = tables.Column(
+        verbose_name='网域名称'
+    )
+    description = tables.Column(
+        verbose_name='描述'
+    )
     assigned_object = tables.Column(
         linkify=True,
         orderable=False,
@@ -317,7 +371,7 @@ class IPAddressTable(BaseTable):
     assigned = BooleanColumn(
         accessor='assigned_object',
         linkify=True,
-        verbose_name='Assigned'
+        verbose_name='已分配'
     )
     tags = TagColumn(
         url_name='ipam:ipaddress_list'

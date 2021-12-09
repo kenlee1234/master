@@ -30,11 +30,18 @@ CIRCUITTERMINATION_LINK = """
 class ProviderTable(BaseTable):
     pk = ToggleColumn()
     name = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='名称'
     )
     circuit_count = tables.Column(
         accessor=Accessor('count_circuits'),
-        verbose_name='Circuits'
+        verbose_name='线路'
+    )
+    asn = tables.Column(
+        verbose_name='自治系统编号'
+    )
+    account = tables.Column(
+        verbose_name='帐号'
     )
     comments = MarkdownColumn()
     tags = TagColumn(
@@ -57,10 +64,15 @@ class ProviderTable(BaseTable):
 class ProviderNetworkTable(BaseTable):
     pk = ToggleColumn()
     name = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='名称'
     )
     provider = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='运营商'
+    )
+    description = tables.Column(
+        verbose_name='描述'
     )
     comments = MarkdownColumn()
     tags = TagColumn(
@@ -80,10 +92,14 @@ class ProviderNetworkTable(BaseTable):
 class CircuitTypeTable(BaseTable):
     pk = ToggleColumn()
     name = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='名称'
     )
     circuit_count = tables.Column(
-        verbose_name='Circuits'
+        verbose_name='线路列表'
+    )
+    description = tables.Column(
+        verbose_name='描述'
     )
     actions = ButtonsColumn(CircuitType)
 
@@ -104,17 +120,28 @@ class CircuitTable(BaseTable):
         verbose_name='ID'
     )
     provider = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='运营商'
     )
-    status = ChoiceFieldColumn()
-    tenant = TenantColumn()
+    type = tables.Column(
+        verbose_name='类型'
+    )
+    status = ChoiceFieldColumn(
+        verbose_name='状态'
+    )
+    tenant = TenantColumn(
+        verbose_name='租户'
+    )
     termination_a = tables.TemplateColumn(
         template_code=CIRCUITTERMINATION_LINK,
-        verbose_name='Side A'
+        verbose_name='A终端'
     )
     termination_z = tables.TemplateColumn(
         template_code=CIRCUITTERMINATION_LINK,
-        verbose_name='Side Z'
+        verbose_name='Z终端'
+    )
+    description = tables.Column(
+        verbose_name='描述'
     )
     comments = MarkdownColumn()
     tags = TagColumn(

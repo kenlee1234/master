@@ -17,15 +17,20 @@ __all__ = (
 class PowerPanelTable(BaseTable):
     pk = ToggleColumn()
     name = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='名称'
     )
     site = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='站点'
+    )
+    location = tables.Column(
+        verbose_name='地点'
     )
     powerfeed_count = LinkedCountColumn(
         viewname='dcim:powerfeed_list',
         url_params={'power_panel_id': 'pk'},
-        verbose_name='Feeds'
+        verbose_name='供电列表'
     )
     tags = TagColumn(
         url_name='dcim:powerpanel_list'
@@ -46,16 +51,35 @@ class PowerPanelTable(BaseTable):
 class PowerFeedTable(CableTerminationTable):
     pk = ToggleColumn()
     name = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='名称'
     )
     power_panel = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='电源面板'
     )
     rack = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='机架'
     )
-    status = ChoiceFieldColumn()
-    type = ChoiceFieldColumn()
+    status = ChoiceFieldColumn(
+        verbose_name='状态'
+    )
+    type = ChoiceFieldColumn(
+        verbose_name='类型'
+    )
+    supply = tables.Column(
+        verbose_name='供给'
+    )
+    voltage = tables.Column(
+        verbose_name='伏特'
+    )
+    amperage = tables.Column(
+        verbose_name='安培'
+    )
+    phase = tables.Column(
+        verbose_name='阶段'
+    )
     max_utilization = tables.TemplateColumn(
         template_code="{{ value }}%"
     )

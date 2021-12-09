@@ -1,3 +1,4 @@
+from re import VERBOSE
 import django_tables2 as tables
 from django_tables2.utils import Accessor
 from django.conf import settings
@@ -70,20 +71,28 @@ def get_interface_state_attribute(record):
 class DeviceRoleTable(BaseTable):
     pk = ToggleColumn()
     name = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='名称'
     )
     device_count = LinkedCountColumn(
         viewname='dcim:device_list',
         url_params={'role_id': 'pk'},
-        verbose_name='Devices'
+        verbose_name='设备列表'
     )
     vm_count = LinkedCountColumn(
         viewname='virtualization:virtualmachine_list',
         url_params={'role_id': 'pk'},
-        verbose_name='VMs'
+        verbose_name='虚拟机列表'
     )
-    color = ColorColumn()
-    vm_role = BooleanColumn()
+    color = ColorColumn(
+        verbose_name='颜色'
+    )
+    vm_role = BooleanColumn(
+        verbose_name='虚拟机角色'
+    )
+    description = tables.Column(
+        verbose_name='描述'
+    )
     actions = ButtonsColumn(DeviceRole)
 
     class Meta(BaseTable.Meta):
@@ -99,17 +108,27 @@ class DeviceRoleTable(BaseTable):
 class PlatformTable(BaseTable):
     pk = ToggleColumn()
     name = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='名称'
+    )
+    manufacturer = tables.Column(
+        verbose_name='制造商'
     )
     device_count = LinkedCountColumn(
         viewname='dcim:device_list',
         url_params={'platform_id': 'pk'},
-        verbose_name='Devices'
+        verbose_name='设备列表'
     )
     vm_count = LinkedCountColumn(
         viewname='virtualization:virtualmachine_list',
         url_params={'platform_id': 'pk'},
-        verbose_name='VMs'
+        verbose_name='虚拟机列表'
+    )
+    napalm_driver = tables.Column(
+        verbose_name='NAPALM驱动程序 '
+    )
+    description = tables.Column(
+        verbose_name='描述'
     )
     actions = ButtonsColumn(Platform)
 
@@ -132,41 +151,50 @@ class DeviceTable(BaseTable):
     pk = ToggleColumn()
     name = tables.TemplateColumn(
         order_by=('_name',),
-        template_code=DEVICE_LINK
+        template_code=DEVICE_LINK,
+        verbose_name='名称'
     )
-    status = ChoiceFieldColumn()
-    tenant = TenantColumn()
+    status = ChoiceFieldColumn(
+        verbose_name='状态'
+    )
+    tenant = TenantColumn(
+        verbose_name='租户'
+    )
     site = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='站点'
     )
     location = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='地点'
     )
     rack = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='机架'
     )
     device_role = ColoredLabelColumn(
-        verbose_name='Role'
+        verbose_name='角色'
     )
     manufacturer = tables.Column(
         accessor=Accessor('device_type__manufacturer'),
-        linkify=True
+        linkify=True,
+        verbose_name='制造商'
     )
     device_type = tables.Column(
         linkify=True,
-        verbose_name='Type'
+        verbose_name='类型'
     )
     if settings.PREFER_IPV4:
         primary_ip = tables.Column(
             linkify=True,
             order_by=('primary_ip4', 'primary_ip6'),
-            verbose_name='IP Address'
+            verbose_name='IP地址'
         )
     else:
         primary_ip = tables.Column(
             linkify=True,
             order_by=('primary_ip6', 'primary_ip4'),
-            verbose_name='IP Address'
+            verbose_name='IP地址'
         )
     primary_ip4 = tables.Column(
         linkify=True,
@@ -251,7 +279,8 @@ class DeviceComponentTable(BaseTable):
 
 class CableTerminationTable(BaseTable):
     cable = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='电缆'
     )
     cable_color = ColorColumn(
         accessor='cable.color',
@@ -262,7 +291,7 @@ class CableTerminationTable(BaseTable):
         accessor='_cable_peer',
         template_code=CABLETERMINATION,
         orderable=False,
-        verbose_name='Cable Peer'
+        verbose_name='终端电缆'
     )
     mark_connected = BooleanColumn()
 
@@ -277,11 +306,27 @@ class PathEndpointTable(CableTerminationTable):
 
 
 class ConsolePortTable(DeviceComponentTable, PathEndpointTable):
+    name = tables.Column(
+        verbose_name='名称'
+    )
     device = tables.Column(
         linkify={
             'viewname': 'dcim:device_consoleports',
             'args': [Accessor('device_id')],
-        }
+        },
+        verbose_name='设备'
+    )
+    label = tables.Column(
+        verbose_name='标签'
+    )
+    type = tables.Column(
+        verbose_name='类型'
+    )
+    speed = tables.Column(
+        verbose_name='端口速度'
+    )
+    description = tables.Column(
+        verbose_name='描述'
     )
     tags = TagColumn(
         url_name='dcim:consoleport_list'
@@ -321,11 +366,27 @@ class DeviceConsolePortTable(ConsolePortTable):
 
 
 class ConsoleServerPortTable(DeviceComponentTable, PathEndpointTable):
+    name = tables.Column(
+        verbose_name='名称'
+    )
     device = tables.Column(
         linkify={
             'viewname': 'dcim:device_consoleserverports',
             'args': [Accessor('device_id')],
-        }
+        },
+        verbose_name='设备'
+    )
+    label = tables.Column(
+        verbose_name='标签'
+    )
+    type = tables.Column(
+        verbose_name='类型'
+    )
+    speed = tables.Column(
+        verbose_name='端口速度 '
+    )
+    description = tables.Column(
+        verbose_name='描述'
     )
     tags = TagColumn(
         url_name='dcim:consoleserverport_list'
@@ -366,11 +427,30 @@ class DeviceConsoleServerPortTable(ConsoleServerPortTable):
 
 
 class PowerPortTable(DeviceComponentTable, PathEndpointTable):
+    name = tables.Column(
+        verbose_name='名称'
+    )
     device = tables.Column(
         linkify={
             'viewname': 'dcim:device_powerports',
             'args': [Accessor('device_id')],
-        }
+        },
+        verbose_name='设备'
+    )
+    label = tables.Column(
+        verbose_name='标签'
+    )
+    type = tables.Column(
+        verbose_name='类型'
+    )
+    maximum_draw = tables.Column(
+        verbose_name='最大功率消耗'
+    )
+    allocated_draw = tables.Column(
+        verbose_name='给定功率消耗'
+    )
+    description = tables.Column(
+        verbose_name='描述'
     )
     tags = TagColumn(
         url_name='dcim:powerport_list'
@@ -414,14 +494,31 @@ class DevicePowerPortTable(PowerPortTable):
 
 
 class PowerOutletTable(DeviceComponentTable, PathEndpointTable):
+    name = tables.Column(
+        verbose_name='名称'
+    )
     device = tables.Column(
         linkify={
             'viewname': 'dcim:device_poweroutlets',
             'args': [Accessor('device_id')],
-        }
+        },
+        verbose_name='设备'
+    )
+    label = tables.Column(
+        verbose_name='标签'
+    )
+    type = tables.Column(
+        verbose_name='类型'
+    )
+    description = tables.Column(
+        verbose_name='描述'
     )
     power_port = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='电源端口'
+    )
+    feed_leg = tables.Column(
+        verbose_name='供电支路'
     )
     tags = TagColumn(
         url_name='dcim:poweroutlet_list'
@@ -478,11 +575,27 @@ class BaseInterfaceTable(BaseTable):
 
 
 class InterfaceTable(DeviceComponentTable, BaseInterfaceTable, PathEndpointTable):
+    name = tables.Column(
+        verbose_name='名称'
+    )
     device = tables.Column(
         linkify={
             'viewname': 'dcim:device_interfaces',
             'args': [Accessor('device_id')],
-        }
+        },
+        verbose_name='设备'
+    )
+    label = tables.Column(
+        verbose_name='标签'
+    )
+    enabled = tables.Column(
+        verbose_name='已启用'
+    )
+    type = tables.Column(
+        verbose_name='类型'
+    )
+    description = tables.Column(
+        verbose_name='描述'
     )
     mgmt_only = BooleanColumn()
     tags = TagColumn(
@@ -541,18 +654,34 @@ class DeviceInterfaceTable(InterfaceTable):
 
 
 class FrontPortTable(DeviceComponentTable, CableTerminationTable):
+    name = tables.Column(
+        verbose_name='名称'
+    )
     device = tables.Column(
         linkify={
             'viewname': 'dcim:device_frontports',
             'args': [Accessor('device_id')],
-        }
+        },
+        verbose_name='设备'
     )
-    color = ColorColumn()
+    label = tables.Column(
+        verbose_name='标签'
+    )
+    type = tables.Column(
+        verbose_name='类型'
+    )
+    color = ColorColumn(
+        verbose_name='颜色'
+    )
     rear_port_position = tables.Column(
-        verbose_name='Position'
+        verbose_name='位置'
     )
     rear_port = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='后端口'
+    )
+    description = tables.Column(
+        verbose_name='描述'
     )
     tags = TagColumn(
         url_name='dcim:frontport_list'
@@ -598,13 +727,28 @@ class DeviceFrontPortTable(FrontPortTable):
 
 
 class RearPortTable(DeviceComponentTable, CableTerminationTable):
+    name = tables.Column(
+        verbose_name='名称'
+    )
     device = tables.Column(
         linkify={
             'viewname': 'dcim:device_rearports',
             'args': [Accessor('device_id')],
-        }
+        },
+        verbose_name='设备'
     )
-    color = ColorColumn()
+    label = tables.Column(
+        verbose_name='标签'
+    )
+    type = tables.Column(
+        verbose_name='类型'
+    )
+    color = ColorColumn(
+        verbose_name='颜色 '
+    )
+    description = tables.Column(
+        verbose_name='描述'
+    )
     tags = TagColumn(
         url_name='dcim:rearport_list'
     )
@@ -646,17 +790,29 @@ class DeviceRearPortTable(RearPortTable):
 
 
 class DeviceBayTable(DeviceComponentTable):
+    name = tables.Column(
+        verbose_name='名称'
+    )
     device = tables.Column(
         linkify={
             'viewname': 'dcim:device_devicebays',
             'args': [Accessor('device_id')],
-        }
+        },
+        verbose_name='设备'
+    )
+    label = tables.Column(
+        verbose_name='标签'
     )
     status = tables.TemplateColumn(
-        template_code=DEVICEBAY_STATUS
+        template_code=DEVICEBAY_STATUS,
+        verbose_name='状态'
     )
     installed_device = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='已安装的设备 '
+    )
+    description = tables.Column(
+        verbose_name='描述'
     )
     tags = TagColumn(
         url_name='dcim:devicebay_list'
@@ -692,14 +848,31 @@ class DeviceDeviceBayTable(DeviceBayTable):
 
 
 class InventoryItemTable(DeviceComponentTable):
+    name = tables.Column(
+        verbose_name='名称'
+    )
     device = tables.Column(
         linkify={
             'viewname': 'dcim:device_inventory',
             'args': [Accessor('device_id')],
-        }
+        },
+        verbose_name='设备'
+    )
+    label = tables.Column(
+        verbose_name='标签'
     )
     manufacturer = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='制造商'
+    )
+    part_id = tables.Column(
+        verbose_name='部件ID'
+    )
+    serial = tables.Column(
+        verbose_name='序列编号'
+    )
+    asset_tag = tables.Column(
+        verbose_name='资产标签 '
     )
     discovered = BooleanColumn()
     tags = TagColumn(
@@ -747,15 +920,20 @@ class DeviceInventoryItemTable(InventoryItemTable):
 class VirtualChassisTable(BaseTable):
     pk = ToggleColumn()
     name = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='名称'
     )
     master = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='主设备'
+    )
+    domain = tables.Column(
+        verbose_name='网域'
     )
     member_count = LinkedCountColumn(
         viewname='dcim:device_list',
         url_params={'virtual_chassis_id': 'pk'},
-        verbose_name='Members'
+        verbose_name='成员列表 '
     )
     tags = TagColumn(
         url_name='dcim:virtualchassis_list'

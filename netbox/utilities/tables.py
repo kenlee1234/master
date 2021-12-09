@@ -452,9 +452,11 @@ class MarkdownColumn(tables.TemplateColumn):
     {% endif %}
     """
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         super().__init__(
-            template_code=self.template_code
+            template_code=self.template_code,
+            *args,
+            **kwargs
         )
 
     def value(self, value):

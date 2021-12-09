@@ -44,12 +44,16 @@ class TenantColumn(tables.TemplateColumn):
 class TenantGroupTable(BaseTable):
     pk = ToggleColumn()
     name = MPTTColumn(
-        linkify=True
+        linkify=True,
+        verbose_name='名称'
     )
     tenant_count = LinkedCountColumn(
         viewname='tenancy:tenant_list',
         url_params={'group_id': 'pk'},
-        verbose_name='Tenants'
+        verbose_name='群组列表'
+    )
+    description = tables.Column(
+        verbose_name='描述'
     )
     actions = ButtonsColumn(TenantGroup)
 
@@ -66,10 +70,15 @@ class TenantGroupTable(BaseTable):
 class TenantTable(BaseTable):
     pk = ToggleColumn()
     name = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='名称'
     )
     group = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='群组'
+    )
+    description = tables.Column(
+        verbose_name='描述'
     )
     comments = MarkdownColumn()
     tags = TagColumn(

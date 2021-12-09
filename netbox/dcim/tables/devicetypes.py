@@ -29,16 +29,20 @@ __all__ = (
 class ManufacturerTable(BaseTable):
     pk = ToggleColumn()
     name = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='名称'
     )
     devicetype_count = tables.Column(
-        verbose_name='Device Types'
+        verbose_name='设备类型列表'
     )
     inventoryitem_count = tables.Column(
-        verbose_name='Inventory Items'
+        verbose_name='清单项目'
     )
     platform_count = tables.Column(
-        verbose_name='Platforms'
+        verbose_name='平台列表'
+    )
+    description = tables.Column(
+        verbose_name='描述'
     )
     slug = tables.Column()
     actions = ButtonsColumn(Manufacturer)
@@ -58,15 +62,24 @@ class DeviceTypeTable(BaseTable):
     pk = ToggleColumn()
     model = tables.Column(
         linkify=True,
-        verbose_name='Device Type'
+        verbose_name='设备类型'
+    )
+    manufacturer = tables.Column(
+        verbose_name='制造商'
+    )
+    part_number = tables.Column(
+        verbose_name='部件编号'
+    )
+    u_height = tables.Column(
+        verbose_name='高度（机架单位）'
     )
     is_full_depth = BooleanColumn(
-        verbose_name='Full Depth'
+        verbose_name='达到最大深度'
     )
     instance_count = LinkedCountColumn(
         viewname='dcim:device_list',
         url_params={'device_type_id': 'pk'},
-        verbose_name='Instances'
+        verbose_name='实例列表 '
     )
     comments = MarkdownColumn()
     tags = TagColumn(

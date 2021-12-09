@@ -24,27 +24,35 @@ class CableTable(BaseTable):
         template_code=CABLE_TERMINATION_PARENT,
         accessor=Accessor('termination_a'),
         orderable=False,
-        verbose_name='Side A'
+        verbose_name='A方'
     )
     termination_a = tables.Column(
         accessor=Accessor('termination_a'),
         orderable=False,
         linkify=True,
-        verbose_name='Termination A'
+        verbose_name='A终端'
     )
     termination_b_parent = tables.TemplateColumn(
         template_code=CABLE_TERMINATION_PARENT,
         accessor=Accessor('termination_b'),
         orderable=False,
-        verbose_name='Side B'
+        verbose_name='B方'
     )
     termination_b = tables.Column(
         accessor=Accessor('termination_b'),
         orderable=False,
         linkify=True,
-        verbose_name='Termination B'
+        verbose_name='B终端'
     )
-    status = ChoiceFieldColumn()
+    label = tables.Column(
+        verbose_name='标签'
+    )
+    status = ChoiceFieldColumn(
+        verbose_name='状态'
+    )
+    type = tables.Column(
+        verbose_name='类型'
+    )
     length = TemplateColumn(
         template_code=CABLE_LENGTH,
         order_by='_abs_length'

@@ -63,16 +63,25 @@ VLAN_MEMBER_TAGGED = """
 
 class VLANGroupTable(BaseTable):
     pk = ToggleColumn()
-    name = tables.Column(linkify=True)
-    scope_type = ContentTypeColumn()
+    name = tables.Column(
+        linkify=True,
+        verbose_name='名称'
+    )
+    scope_type = ContentTypeColumn(
+        verbose_name='范围类型'
+    )
     scope = tables.Column(
         linkify=True,
-        orderable=False
+        orderable=False,
+        verbose_name='范围'
     )
     vlan_count = LinkedCountColumn(
         viewname='ipam:vlan_list',
         url_params={'group_id': 'pk'},
-        verbose_name='VLANs'
+        verbose_name='虚拟局域网列表'
+    )
+    description = tables.Column(
+        verbose_name='描述'
     )
     actions = ButtonsColumn(
         model=VLANGroup,
@@ -95,23 +104,35 @@ class VLANTable(BaseTable):
         template_code=VLAN_LINK,
         verbose_name='ID'
     )
+    name = tables.Column(
+        verbose_name='名称'
+    )
     site = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='站点'
     )
     group = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='群组'
     )
-    tenant = TenantColumn()
+    tenant = TenantColumn(
+        verbose_name='租户'
+    )
     status = ChoiceFieldColumn(
-        default=AVAILABLE_LABEL
+        default=AVAILABLE_LABEL,
+        verbose_name='状态'
     )
     role = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='角色'
     )
     prefixes = TemplateColumn(
         template_code=VLAN_PREFIXES,
         orderable=False,
-        verbose_name='Prefixes'
+        verbose_name='前缀列表'
+    )
+    description = tables.Column(
+        verbose_name='描述'
     )
     tags = TagColumn(
         url_name='ipam:vlan_list'

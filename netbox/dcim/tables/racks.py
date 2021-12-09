@@ -1,3 +1,4 @@
+from re import VERBOSE
 import django_tables2 as tables
 from django_tables2.utils import Accessor
 
@@ -21,9 +22,19 @@ __all__ = (
 
 class RackRoleTable(BaseTable):
     pk = ToggleColumn()
-    name = tables.Column(linkify=True)
-    rack_count = tables.Column(verbose_name='Racks')
-    color = ColorColumn()
+    name = tables.Column(
+        linkify=True,
+        verbose_name='名称'
+    )
+    rack_count = tables.Column(
+        verbose_name='机架列表'
+    )
+    color = ColorColumn(
+        verbose_name='颜色'
+    )
+    description = tables.Column(
+        verbose_name='描述'
+    )
     actions = ButtonsColumn(RackRole)
 
     class Meta(BaseTable.Meta):
@@ -40,34 +51,46 @@ class RackTable(BaseTable):
     pk = ToggleColumn()
     name = tables.Column(
         order_by=('_name',),
-        linkify=True
+        linkify=True,
+        verbose_name='名称'
     )
     location = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='地点'
     )
     site = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='站点'
     )
-    tenant = TenantColumn()
-    status = ChoiceFieldColumn()
-    role = ColoredLabelColumn()
+    tenant = TenantColumn(
+        verbose_name='租户'
+    )
+    status = ChoiceFieldColumn(
+        verbose_name='状态'
+    )
+    facility_id = tables.Column(
+        verbose_name='设施ID'
+    )
+    role = ColoredLabelColumn(
+        verbose_name='角色'
+    )
     u_height = tables.TemplateColumn(
         template_code="{{ record.u_height }}U",
-        verbose_name='Height'
+        verbose_name='高度（机架单位）'
     )
     comments = MarkdownColumn()
     device_count = LinkedCountColumn(
         viewname='dcim:device_list',
         url_params={'rack_id': 'pk'},
-        verbose_name='Devices'
+        verbose_name='设备列表'
     )
     get_utilization = UtilizationColumn(
         orderable=False,
-        verbose_name='Space'
+        verbose_name='空间'
     )
     get_power_utilization = UtilizationColumn(
         orderable=False,
-        verbose_name='Power'
+        verbose_name='电力'
     )
     tags = TagColumn(
         url_name='dcim:rack_list'
@@ -93,19 +116,30 @@ class RackReservationTable(BaseTable):
     pk = ToggleColumn()
     reservation = tables.Column(
         accessor='pk',
-        linkify=True
+        linkify=True,
+        verbose_name='保留'
     )
     site = tables.Column(
         accessor=Accessor('rack__site'),
-        linkify=True
+        linkify=True,
+        verbose_name='站点'
     )
-    tenant = TenantColumn()
+    tenant = TenantColumn(
+        verbose_name='租户'
+    )
     rack = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='机架'
     )
     unit_list = tables.Column(
         orderable=False,
-        verbose_name='Units'
+        verbose_name='单元列表'
+    )
+    user = tables.Column(
+        verbose_name='用户'
+    )
+    description = tables.Column(
+        verbose_name='描述'
     )
     tags = TagColumn(
         url_name='dcim:rackreservation_list'

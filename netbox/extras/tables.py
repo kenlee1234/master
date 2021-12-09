@@ -49,10 +49,24 @@ OBJECTCHANGE_REQUEST_ID = """
 class CustomFieldTable(BaseTable):
     pk = ToggleColumn()
     name = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='名称'
     )
-    content_types = ContentTypesColumn()
-    required = BooleanColumn()
+    content_types = ContentTypesColumn(
+        verbose_name='内容类型'
+    )
+    label = tables.Column(
+        verbose_name='标签'
+    )
+    type = tables.Column(
+        verbose_name='类型'
+    )
+    required = BooleanColumn(
+        verbose_name='必要'
+    )
+    description = tables.Column(
+        verbose_name='描述'
+    )
 
     class Meta(BaseTable.Meta):
         model = CustomField
@@ -70,10 +84,21 @@ class CustomFieldTable(BaseTable):
 class CustomLinkTable(BaseTable):
     pk = ToggleColumn()
     name = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='名称'
     )
-    content_type = ContentTypeColumn()
-    new_window = BooleanColumn()
+    content_type = ContentTypeColumn(
+        verbose_name='内容类型'
+    )
+    group_name = tables.Column(
+        verbose_name='群组名称'
+    )
+    button_class = tables.Column(
+        verbose_name='按钮类型'
+    )
+    new_window = BooleanColumn(
+        verbose_name='新窗口'
+    )
 
     class Meta(BaseTable.Meta):
         model = CustomLink
@@ -90,10 +115,24 @@ class CustomLinkTable(BaseTable):
 class ExportTemplateTable(BaseTable):
     pk = ToggleColumn()
     name = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='名称'
     )
-    content_type = ContentTypeColumn()
-    as_attachment = BooleanColumn()
+    content_type = ContentTypeColumn(
+        verbose_name='内容类型'
+    )
+    description = tables.Column(
+        verbose_name='描述'
+    )
+    mime_type = tables.Column(
+        verbose_name='MIME类型'
+    )
+    file_extension = tables.Column(
+        verbose_name='文件扩展名'
+    )
+    as_attachment = BooleanColumn(
+        verbose_name='附件下载'
+    )
 
     class Meta(BaseTable.Meta):
         model = ExportTemplate
@@ -112,18 +151,29 @@ class ExportTemplateTable(BaseTable):
 class WebhookTable(BaseTable):
     pk = ToggleColumn()
     name = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='名称'
     )
-    content_types = ContentTypesColumn()
-    enabled = BooleanColumn()
+    content_types = ContentTypesColumn(
+        verbose_name='目标类型'
+    )
+    enabled = BooleanColumn(
+        verbose_name='已启用'
+    )
     type_create = BooleanColumn(
-        verbose_name='Create'
+        verbose_name='创建'
     )
     type_update = BooleanColumn(
-        verbose_name='Update'
+        verbose_name='更新'
     )
     type_delete = BooleanColumn(
-        verbose_name='Delete'
+        verbose_name='删除'
+    )
+    http_method = tables.Column(
+        verbose_name='HTTP方法'
+    )
+    payload_url = tables.Column(
+        verbose_name='网址'
     )
     ssl_validation = BooleanColumn(
         verbose_name='SSL Validation'
@@ -148,9 +198,18 @@ class WebhookTable(BaseTable):
 class TagTable(BaseTable):
     pk = ToggleColumn()
     name = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='名称'
     )
-    color = ColorColumn()
+    items = tables.Column(
+        verbose_name='项目'
+    )
+    color = ColorColumn(
+        verbose_name='颜色'
+    )
+    description = tables.Column(
+        verbose_name='描述'
+    )
     actions = ButtonsColumn(Tag)
 
     class Meta(BaseTable.Meta):
@@ -176,10 +235,17 @@ class TaggedItemTable(BaseTable):
 class ConfigContextTable(BaseTable):
     pk = ToggleColumn()
     name = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='名称'
+    )
+    weight = tables.Column(
+        verbose_name='权重'
     )
     is_active = BooleanColumn(
-        verbose_name='Active'
+        verbose_name='激活'
+    )
+    description = tables.Column(
+        verbose_name='描述'
     )
 
     class Meta(BaseTable.Meta):
@@ -194,11 +260,17 @@ class ConfigContextTable(BaseTable):
 class ObjectChangeTable(BaseTable):
     time = tables.DateTimeColumn(
         linkify=True,
-        format=settings.SHORT_DATETIME_FORMAT
+        format=settings.SHORT_DATETIME_FORMAT,
+        verbose_name='时间'
     )
-    action = ChoiceFieldColumn()
+    user_name = tables.Column(
+        verbose_name='用户名'
+    )
+    action = ChoiceFieldColumn(
+        verbose_name='行动'
+    )
     changed_object_type = ContentTypeColumn(
-        verbose_name='类型'
+        verbose_name='目标类型'
     )
     object_repr = tables.TemplateColumn(
         template_code=OBJECTCHANGE_OBJECT,
@@ -211,7 +283,7 @@ class ObjectChangeTable(BaseTable):
 
     class Meta(BaseTable.Meta):
         model = ObjectChange
-        fields = ('time', '用户名', 'action', 'changed_object_type', 'object_repr', 'request_id')
+        fields = ('time', 'user_name', 'action', 'changed_object_type', 'object_repr', 'request_id')
 
 
 class ObjectJournalTable(BaseTable):
@@ -220,9 +292,12 @@ class ObjectJournalTable(BaseTable):
     """
     created = tables.DateTimeColumn(
         linkify=True,
-        format=settings.SHORT_DATETIME_FORMAT
+        format=settings.SHORT_DATETIME_FORMAT,
+        verbose_name='创建日期'
     )
-    kind = ChoiceFieldColumn()
+    kind = ChoiceFieldColumn(
+        verbose_name='种类'
+    )
     comments = tables.TemplateColumn(
         template_code='{% load helpers %}{{ value|render_markdown|truncatewords_html:50 }}'
     )
@@ -237,15 +312,20 @@ class ObjectJournalTable(BaseTable):
 
 class JournalEntryTable(ObjectJournalTable):
     pk = ToggleColumn()
+    created_by = tables.Column(
+        verbose_name='创建者'
+    )
     assigned_object_type = ContentTypeColumn(
-        verbose_name='Object type'
+        verbose_name='目标类型'
     )
     assigned_object = tables.Column(
         linkify=True,
         orderable=False,
-        verbose_name='Object'
+        verbose_name='目标'
     )
-    comments = MarkdownColumn()
+    comments = MarkdownColumn(
+        verbose_name='评论'
+    )
 
     class Meta(BaseTable.Meta):
         model = JournalEntry

@@ -505,7 +505,6 @@ class JournalEntryListView(generic.ObjectListView):
     table = tables.JournalEntryTable
     action_buttons = ('export',)
 
-
 class JournalEntryView(generic.ObjectView):
     queryset = JournalEntry.objects.all()
 

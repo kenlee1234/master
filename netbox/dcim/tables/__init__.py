@@ -20,24 +20,25 @@ class ConsoleConnectionTable(BaseTable):
         accessor=Accessor('_path__destination__device'),
         orderable=False,
         linkify=True,
-        verbose_name='Console Server'
+        verbose_name='控制台服务器'
     )
     console_server_port = tables.Column(
         accessor=Accessor('_path__destination'),
         orderable=False,
         linkify=True,
-        verbose_name='Port'
+        verbose_name='端口'
     )
     device = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='設備'
     )
     name = tables.Column(
         linkify=True,
-        verbose_name='Console Port'
+        verbose_name='控制台端口'
     )
     reachable = BooleanColumn(
         accessor=Accessor('_path__is_active'),
-        verbose_name='Reachable'
+        verbose_name='可连接'
     )
 
     class Meta(BaseTable.Meta):
@@ -50,24 +51,25 @@ class PowerConnectionTable(BaseTable):
         accessor=Accessor('_path__destination__device'),
         orderable=False,
         linkify=True,
-        verbose_name='PDU'
+        verbose_name='电力分配单元'
     )
     outlet = tables.Column(
         accessor=Accessor('_path__destination'),
         orderable=False,
         linkify=True,
-        verbose_name='Outlet'
+        verbose_name='电源插口'
     )
     device = tables.Column(
-        linkify=True
+        linkify=True,
+        verbose_name='设备'
     )
     name = tables.Column(
         linkify=True,
-        verbose_name='Power Port'
+        verbose_name='电源端口'
     )
     reachable = BooleanColumn(
         accessor=Accessor('_path__is_active'),
-        verbose_name='Reachable'
+        verbose_name='可连接'
     )
 
     class Meta(BaseTable.Meta):
@@ -79,28 +81,28 @@ class InterfaceConnectionTable(BaseTable):
     device_a = tables.Column(
         accessor=Accessor('device'),
         linkify=True,
-        verbose_name='Device A'
+        verbose_name='A设备'
     )
     interface_a = tables.Column(
         accessor=Accessor('name'),
         linkify=True,
-        verbose_name='Interface A'
+        verbose_name='A接口'
     )
     device_b = tables.Column(
         accessor=Accessor('_path__destination__device'),
         orderable=False,
         linkify=True,
-        verbose_name='Device B'
+        verbose_name='B设备'
     )
     interface_b = tables.Column(
         accessor=Accessor('_path__destination'),
         orderable=False,
         linkify=True,
-        verbose_name='Interface B'
+        verbose_name='B接口'
     )
     reachable = BooleanColumn(
         accessor=Accessor('_path__is_active'),
-        verbose_name='Reachable'
+        verbose_name='可连接'
     )
 
     class Meta(BaseTable.Meta):
