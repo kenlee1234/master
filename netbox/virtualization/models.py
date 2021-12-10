@@ -52,6 +52,8 @@ class ClusterType(OrganizationalModel):
 
     class Meta:
         ordering = ['name']
+        verbose_name = '集群类型'
+        verbose_name_plural = '集群类型列表'
 
     def __str__(self):
         return self.name
@@ -92,6 +94,8 @@ class ClusterGroup(OrganizationalModel):
 
     class Meta:
         ordering = ['name']
+        verbose_name = '集群分组'
+        verbose_name_plural = '集群分组列表'
 
     def __str__(self):
         return self.name
@@ -157,6 +161,8 @@ class Cluster(PrimaryModel):
 
     class Meta:
         ordering = ['name']
+        verbose_name = '集群'
+        verbose_name_plural = '集群列表'
 
     def __str__(self):
         return self.name
@@ -279,6 +285,8 @@ class VirtualMachine(PrimaryModel, ConfigContextModel):
         unique_together = [
             ['cluster', 'tenant', 'name']
         ]
+        verbose_name = '虚拟机'
+        verbose_name_plural = '虚拟机列表'
 
     def __str__(self):
         return self.name
@@ -395,6 +403,8 @@ class VMInterface(PrimaryModel, BaseInterface):
         verbose_name = 'interface'
         ordering = ('virtual_machine', CollateAsChar('_name'))
         unique_together = ('virtual_machine', 'name')
+        verbose_name = '交互'
+        verbose_name_plural = '交互列表'
 
     def __str__(self):
         return self.name

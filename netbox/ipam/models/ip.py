@@ -59,8 +59,8 @@ class RIR(OrganizationalModel):
 
     class Meta:
         ordering = ['name']
-        verbose_name = 'RIR'
-        verbose_name_plural = 'RIRs'
+        verbose_name = '区域互联网注册管理机构'
+        verbose_name_plural = '区域互联网注册管理机构列表'
 
     def __str__(self):
         return self.name
@@ -106,6 +106,8 @@ class Aggregate(PrimaryModel):
 
     class Meta:
         ordering = ('prefix', 'pk')  # prefix may be non-unique
+        verbose_name = '聚合'
+        verbose_name_plural = '聚合列表'
 
     def __str__(self):
         return str(self.prefix)
@@ -194,6 +196,8 @@ class Role(OrganizationalModel):
 
     class Meta:
         ordering = ['weight', 'name']
+        verbose_name = '前缀和VLAN规则'
+        verbose_name_plural = '前缀和VLAN规则列表'
 
     def __str__(self):
         return self.name
@@ -289,7 +293,8 @@ class Prefix(PrimaryModel):
 
     class Meta:
         ordering = (F('vrf').asc(nulls_first=True), 'prefix', 'pk')  # (vrf, prefix) may be non-unique
-        verbose_name_plural = 'prefixes'
+        verbose_name = '前缀'
+        verbose_name_plural = '前缀列表'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -555,8 +560,8 @@ class IPRange(PrimaryModel):
 
     class Meta:
         ordering = (F('vrf').asc(nulls_first=True), 'start_address', 'pk')  # (vrf, start_address) may be non-unique
-        verbose_name = 'IP range'
-        verbose_name_plural = 'IP ranges'
+        verbose_name = 'IP范围'
+        verbose_name_plural = 'IP范围列表'
 
     def __str__(self):
         return self.name
@@ -784,8 +789,8 @@ class IPAddress(PrimaryModel):
 
     class Meta:
         ordering = ('address', 'pk')  # address may be non-unique
-        verbose_name = 'IP address'
-        verbose_name_plural = 'IP addresses'
+        verbose_name = 'IP地址'
+        verbose_name_plural = 'IP地址列表'
 
     def __str__(self):
         return str(self.address)

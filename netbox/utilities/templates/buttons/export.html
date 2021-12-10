@@ -1,10 +1,10 @@
 <div class="dropdown">
     <button type="button" class="btn btn-sm btn-purple dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="mdi mdi-download"></i>&nbsp;Export
+        <i class="mdi mdi-download"></i>&nbsp;导出
     </button>
     <ul class="dropdown-menu dropdown-menu-end">
-        <li><a class="dropdown-item" href="?{% if url_params %}{{ url_params.urlencode }}&{% endif %}export=table">Current View</a></li>
-        <li><a class="dropdown-item" href="?{% if url_params %}{{ url_params.urlencode }}&{% endif %}export">All Data</a></li>
+        <li><a class="dropdown-item" href="?{% if url_params %}{{ url_params.urlencode }}&{% endif %}export=table">当前视图</a></li>
+        <li><a class="dropdown-item" href="?{% if url_params %}{{ url_params.urlencode }}&{% endif %}export">所有数据</a></li>
         {% if export_templates %}
         <li>
           <hr class="dropdown-divider">
@@ -24,7 +24,7 @@
           <hr class="dropdown-divider">
         </li>
         <li>
-          <a class="dropdown-item" href="{{ add_exporttemplate_link }}">Add export template...</a>
+          <a class="dropdown-item" href="{{ add_exporttemplate_link }}">新增导出模板...</a>
         </li>
         {% endif %}
     </ul>

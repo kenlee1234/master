@@ -35,12 +35,12 @@
             {% endif %}
         {% endfor %}
         <div class="input-group input-group-sm">
+            <label class="input-group-text" for="per_page">每页</label>
             <select name="per_page" class="form-select per-page">
             {% for n in settings.PER_PAGE_DEFAULTS %}
                 <option value="{{ n }}"{% if page.paginator.per_page == n %} selected="selected"{% endif %}>{{ n }}</option>
             {% endfor %}
             </select>
-            <label class="input-group-text" for="per_page">Per Page</label>
         </div>
     </form>
     {% if page %}

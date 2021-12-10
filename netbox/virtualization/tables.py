@@ -139,7 +139,7 @@ class VirtualMachineTable(BaseTable):
         verbose_name='集群'
     )
     role = ColoredLabelColumn(
-        verbose_name='角色'
+        verbose_name='规则'
     )
     tenant = TenantColumn(
         verbose_name='租户'
@@ -201,7 +201,7 @@ class VMInterfaceTable(BaseInterfaceTable):
     )
     parent = tables.Column(
         linkify=True,
-        verbose_name='父接口'
+        verbose_name='父交互'
     )
     description = tables.Column(
         verbose_name='描述'

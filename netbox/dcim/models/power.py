@@ -49,6 +49,8 @@ class PowerPanel(PrimaryModel):
     class Meta:
         ordering = ['site', 'name']
         unique_together = ['site', 'name']
+        verbose_name = '配电盘'
+        verbose_name_plural = '配电盘列表'
 
     def __str__(self):
         return self.name
@@ -136,6 +138,8 @@ class PowerFeed(PrimaryModel, PathEndpoint, CableTermination):
     class Meta:
         ordering = ['power_panel', 'name']
         unique_together = ['power_panel', 'name']
+        verbose_name = '电源供给'
+        verbose_name_plural = '电源供给列表'
 
     def __str__(self):
         return self.name

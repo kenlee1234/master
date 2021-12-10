@@ -117,6 +117,8 @@ class Cable(PrimaryModel):
             ('termination_a_type', 'termination_a_id'),
             ('termination_b_type', 'termination_b_id'),
         )
+        verbose_name = '线缆'
+        verbose_name_plural = '线缆列表'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

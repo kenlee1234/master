@@ -86,7 +86,7 @@ class InterfaceConnectionTable(BaseTable):
     interface_a = tables.Column(
         accessor=Accessor('name'),
         linkify=True,
-        verbose_name='A接口'
+        verbose_name='A交互'
     )
     device_b = tables.Column(
         accessor=Accessor('_path__destination__device'),
@@ -98,7 +98,7 @@ class InterfaceConnectionTable(BaseTable):
         accessor=Accessor('_path__destination'),
         orderable=False,
         linkify=True,
-        verbose_name='B接口'
+        verbose_name='B交互'
     )
     reachable = BooleanColumn(
         accessor=Accessor('_path__is_active'),

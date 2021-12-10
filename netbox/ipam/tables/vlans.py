@@ -124,7 +124,7 @@ class VLANTable(BaseTable):
     )
     role = tables.Column(
         linkify=True,
-        verbose_name='角色'
+        verbose_name='规则'
     )
     prefixes = TemplateColumn(
         template_code=VLAN_PREFIXES,

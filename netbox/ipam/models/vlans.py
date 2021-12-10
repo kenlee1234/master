@@ -60,8 +60,8 @@ class VLANGroup(OrganizationalModel):
             ['scope_type', 'scope_id', 'name'],
             ['scope_type', 'scope_id', 'slug'],
         ]
-        verbose_name = 'VLAN group'
-        verbose_name_plural = 'VLAN groups'
+        verbose_name = '虚拟局域网分组'
+        verbose_name_plural = '虚拟局域网分组列表'
 
     def __str__(self):
         return self.name
@@ -156,8 +156,8 @@ class VLAN(PrimaryModel):
             ['group', 'vid'],
             ['group', 'name'],
         ]
-        verbose_name = 'VLAN'
-        verbose_name_plural = 'VLANs'
+        verbose_name = '虚拟局域网'
+        verbose_name_plural = '虚拟局域网列表'
 
     def __str__(self):
         return f'{self.name} ({self.vid})'

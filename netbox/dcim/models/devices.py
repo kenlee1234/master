@@ -58,6 +58,8 @@ class Manufacturer(OrganizationalModel):
 
     class Meta:
         ordering = ['name']
+        verbose_name = '制造商'
+        verbose_name_plural = '制造商列表'
 
     def __str__(self):
         return self.name
@@ -139,6 +141,8 @@ class DeviceType(PrimaryModel):
             ['manufacturer', 'model'],
             ['manufacturer', 'slug'],
         ]
+        verbose_name = '设备类型'
+        verbose_name_plural = '设备类型列表'
 
     def __str__(self):
         return self.model
@@ -372,6 +376,8 @@ class DeviceRole(OrganizationalModel):
 
     class Meta:
         ordering = ['name']
+        verbose_name = '设备规则'
+        verbose_name_plural = '设备规则列表'
 
     def __str__(self):
         return self.name
@@ -424,6 +430,8 @@ class Platform(OrganizationalModel):
 
     class Meta:
         ordering = ['name']
+        verbose_name = '平台'
+        verbose_name_plural = '平台列表'
 
     def __str__(self):
         return self.name
@@ -590,6 +598,8 @@ class Device(PrimaryModel, ConfigContextModel):
             ('rack', 'position', 'face'),
             ('virtual_chassis', 'vc_position'),
         )
+        verbose_name = '设备'
+        verbose_name_plural = '设备列表'
 
     def __str__(self):
         if self.name:
@@ -876,7 +886,8 @@ class VirtualChassis(PrimaryModel):
 
     class Meta:
         ordering = ['name']
-        verbose_name_plural = 'virtual chassis'
+        verbose_name = '虚拟机箱'
+        verbose_name_plural = '虚拟机箱列表'
 
     def __str__(self):
         return self.name

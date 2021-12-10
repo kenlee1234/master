@@ -66,8 +66,8 @@ class VRF(PrimaryModel):
 
     class Meta:
         ordering = ('name', 'rd', 'pk')  # (name, rd) may be non-unique
-        verbose_name = 'VRF'
-        verbose_name_plural = 'VRFs'
+        verbose_name = '虚拟路由和转发'
+        verbose_name_plural = '虚拟路由和转发列表'
 
     def __str__(self):
         if self.rd:
@@ -104,6 +104,8 @@ class RouteTarget(PrimaryModel):
 
     class Meta:
         ordering = ['name']
+        verbose_name = '路由目标'
+        verbose_name_plural = '路由目标列表'
 
     def __str__(self):
         return self.name

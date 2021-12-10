@@ -44,7 +44,7 @@ class BaseTable(tables.Table):
 
         # Set default empty_text if none was provided
         if self.empty_text is None:
-            self.empty_text = f"No {self._meta.model._meta.verbose_name_plural} found"
+            self.empty_text = f"没有找到{self._meta.model._meta.verbose_name_plural}"
 
         # Hide non-default columns
         default_columns = getattr(self.Meta, 'default_columns', list())

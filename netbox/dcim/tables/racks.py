@@ -72,7 +72,7 @@ class RackTable(BaseTable):
         verbose_name='设施ID'
     )
     role = ColoredLabelColumn(
-        verbose_name='角色'
+        verbose_name='规则'
     )
     u_height = tables.TemplateColumn(
         template_code="{{ record.u_height }}U",

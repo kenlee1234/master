@@ -60,6 +60,10 @@ class Region(NestedGroupModel):
         related_query_name='region'
     )
 
+    class Meta:
+        verbose_name = '地区'
+        verbose_name_plural = '地区列表'
+    
     def get_absolute_url(self):
         return reverse('dcim:region', args=[self.pk])
 
@@ -107,6 +111,11 @@ class SiteGroup(NestedGroupModel):
         object_id_field='scope_id',
         related_query_name='site_group'
     )
+
+    class Meta:
+        verbose_name = '租户分组'
+        verbose_name_plural = '租户分组列表'
+    
 
     def get_absolute_url(self):
         return reverse('dcim:sitegroup', args=[self.pk])
@@ -241,6 +250,8 @@ class Site(PrimaryModel):
 
     class Meta:
         ordering = ('_name',)
+        verbose_name = '站点'
+        verbose_name_plural = '站点列表'
 
     def __str__(self):
         return self.name
@@ -303,6 +314,9 @@ class Location(NestedGroupModel):
             ['site', 'name'],
             ['site', 'slug'],
         ]
+        verbose_name = '地址'
+        verbose_name_plural = '地址列表'
+    
 
     def get_absolute_url(self):
         return reverse('dcim:location', args=[self.pk])

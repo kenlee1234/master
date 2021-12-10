@@ -70,6 +70,8 @@ class Provider(PrimaryModel):
 
     class Meta:
         ordering = ['name']
+        verbose_name = '运营商'
+        verbose_name_plural = '运营商列表'
 
     def __str__(self):
         return self.name
@@ -115,6 +117,8 @@ class ProviderNetwork(PrimaryModel):
             ),
         )
         unique_together = ('provider', 'name')
+        verbose_name = '运营商网络'
+        verbose_name_plural = '运营商网络列表'
 
     def __str__(self):
         return self.name
@@ -146,6 +150,8 @@ class CircuitType(OrganizationalModel):
 
     class Meta:
         ordering = ['name']
+        verbose_name = '线路类型'
+        verbose_name_plural = '线路类型列表'
 
     def __str__(self):
         return self.name
@@ -234,6 +240,8 @@ class Circuit(PrimaryModel):
     class Meta:
         ordering = ['provider', 'cid']
         unique_together = ['provider', 'cid']
+        verbose_name = '线路'
+        verbose_name_plural = '线路列表'
 
     def __str__(self):
         return self.cid

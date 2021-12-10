@@ -234,7 +234,7 @@ class PrefixTable(BaseTable):
     )
     role = tables.Column(
         linkify=True,
-        verbose_name='角色'
+        verbose_name='规则'
     )
     is_pool = BooleanColumn(
         verbose_name='Pool'
@@ -294,7 +294,7 @@ class IPRangeTable(BaseTable):
     )
     role = tables.Column(
         linkify=True,
-        verbose_name='角色'
+        verbose_name='规则'
     )
     tenant = TenantColumn(
         verbose_name='租户'
@@ -341,7 +341,7 @@ class IPAddressTable(BaseTable):
         verbose_name='状态'
     )
     role = ChoiceFieldColumn(
-        verbose_name='角色'
+        verbose_name='规则'
     )
     tenant = TenantColumn(
         verbose_name='租户'

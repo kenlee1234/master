@@ -241,6 +241,8 @@ class ConsolePort(ComponentModel, CableTermination, PathEndpoint):
     class Meta:
         ordering = ('device', '_name')
         unique_together = ('device', 'name')
+        verbose_name = '控制台端口'
+        verbose_name_plural = '控制台端口列表'
 
     def get_absolute_url(self):
         return reverse('dcim:consoleport', kwargs={'pk': self.pk})
@@ -273,6 +275,8 @@ class ConsoleServerPort(ComponentModel, CableTermination, PathEndpoint):
     class Meta:
         ordering = ('device', '_name')
         unique_together = ('device', 'name')
+        verbose_name = '控​制台服务器端口'
+        verbose_name_plural = '控​制台服务器端口列表'
 
     def get_absolute_url(self):
         return reverse('dcim:consoleserverport', kwargs={'pk': self.pk})
@@ -311,6 +315,8 @@ class PowerPort(ComponentModel, CableTermination, PathEndpoint):
     class Meta:
         ordering = ('device', '_name')
         unique_together = ('device', 'name')
+        verbose_name = '电源端口'
+        verbose_name_plural = '电源端口列表'
 
     def get_absolute_url(self):
         return reverse('dcim:powerport', kwargs={'pk': self.pk})
@@ -409,6 +415,8 @@ class PowerOutlet(ComponentModel, CableTermination, PathEndpoint):
     class Meta:
         ordering = ('device', '_name')
         unique_together = ('device', 'name')
+        verbose_name = '电源插座'
+        verbose_name_plural = '电源插座列表'
 
     def get_absolute_url(self):
         return reverse('dcim:poweroutlet', kwargs={'pk': self.pk})
@@ -537,6 +545,8 @@ class Interface(ComponentModel, BaseInterface, CableTermination, PathEndpoint):
     class Meta:
         ordering = ('device', CollateAsChar('_name'))
         unique_together = ('device', 'name')
+        verbose_name = '交互'
+        verbose_name_plural = '交互列表'
 
     def get_absolute_url(self):
         return reverse('dcim:interface', kwargs={'pk': self.pk})
@@ -658,6 +668,8 @@ class FrontPort(ComponentModel, CableTermination):
             ('device', 'name'),
             ('rear_port', 'rear_port_position'),
         )
+        verbose_name = '前段端口'
+        verbose_name_plural = '前段端口列表'
 
     def get_absolute_url(self):
         return reverse('dcim:frontport', kwargs={'pk': self.pk})
@@ -703,6 +715,8 @@ class RearPort(ComponentModel, CableTermination):
     class Meta:
         ordering = ('device', '_name')
         unique_together = ('device', 'name')
+        verbose_name = '后段端口'
+        verbose_name_plural = '后段端口列表'
 
     def get_absolute_url(self):
         return reverse('dcim:rearport', kwargs={'pk': self.pk})
@@ -741,6 +755,8 @@ class DeviceBay(ComponentModel):
     class Meta:
         ordering = ('device', '_name')
         unique_together = ('device', 'name')
+        verbose_name = '设备托架'
+        verbose_name_plural = '设备托架列表'
 
     def get_absolute_url(self):
         return reverse('dcim:devicebay', kwargs={'pk': self.pk})
@@ -825,6 +841,8 @@ class InventoryItem(MPTTModel, ComponentModel):
     class Meta:
         ordering = ('device__id', 'parent__id', '_name')
         unique_together = ('device', 'parent', 'name')
+        verbose_name = '库存物品'
+        verbose_name_plural = '库存物品列表'
 
     def get_absolute_url(self):
         return reverse('dcim:inventoryitem', kwargs={'pk': self.pk})

@@ -69,6 +69,8 @@ class Service(PrimaryModel):
 
     class Meta:
         ordering = ('protocol', 'ports', 'pk')  # (protocol, port) may be non-unique
+        verbose_name = '服务'
+        verbose_name_plural = '服务列表'
 
     def __str__(self):
         return f'{self.name} ({self.get_protocol_display()}/{self.port_list})'

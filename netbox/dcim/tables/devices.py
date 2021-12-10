@@ -88,7 +88,7 @@ class DeviceRoleTable(BaseTable):
         verbose_name='颜色'
     )
     vm_role = BooleanColumn(
-        verbose_name='虚拟机角色'
+        verbose_name='虚拟机规则'
     )
     description = tables.Column(
         verbose_name='描述'
@@ -173,7 +173,7 @@ class DeviceTable(BaseTable):
         verbose_name='机架'
     )
     device_role = ColoredLabelColumn(
-        verbose_name='角色'
+        verbose_name='规则'
     )
     manufacturer = tables.Column(
         accessor=Accessor('device_type__manufacturer'),

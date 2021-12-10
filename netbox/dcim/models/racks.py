@@ -60,6 +60,8 @@ class RackRole(OrganizationalModel):
 
     class Meta:
         ordering = ['name']
+        verbose_name = '架构规则'
+        verbose_name_plural = '架构规则列表'
 
     def __str__(self):
         return self.name
@@ -199,6 +201,8 @@ class Rack(PrimaryModel):
             ('location', 'name'),
             ('location', 'facility_id'),
         )
+        verbose_name = '架构'
+        verbose_name_plural = '架构列表'
 
     def __str__(self):
         if self.facility_id:
@@ -466,6 +470,8 @@ class RackReservation(PrimaryModel):
 
     class Meta:
         ordering = ['created', 'pk']
+        verbose_name = '保留'
+        verbose_name_plural = '保留列表'
 
     def __str__(self):
         return "Reservation for rack {}".format(self.rack)
