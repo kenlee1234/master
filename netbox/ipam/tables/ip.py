@@ -326,7 +326,7 @@ class IPRangeTable(BaseTable):
 #
 
 class IPAddressTable(BaseTable):
-    
+
     pk = ToggleColumn()
     address = tables.TemplateColumn(
         template_code=IPADDRESS_LINK,

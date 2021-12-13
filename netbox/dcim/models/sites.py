@@ -63,7 +63,7 @@ class Region(NestedGroupModel):
     class Meta:
         verbose_name = '地区'
         verbose_name_plural = '地区列表'
-    
+
     def get_absolute_url(self):
         return reverse('dcim:region', args=[self.pk])
 
@@ -115,7 +115,6 @@ class SiteGroup(NestedGroupModel):
     class Meta:
         verbose_name = '租户分组'
         verbose_name_plural = '租户分组列表'
-    
 
     def get_absolute_url(self):
         return reverse('dcim:sitegroup', args=[self.pk])
@@ -316,7 +315,6 @@ class Location(NestedGroupModel):
         ]
         verbose_name = '地址'
         verbose_name_plural = '地址列表'
-    
 
     def get_absolute_url(self):
         return reverse('dcim:location', args=[self.pk])
