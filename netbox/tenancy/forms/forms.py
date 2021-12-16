@@ -33,7 +33,7 @@ class TenancyFilterForm(forms.Form):
         queryset=TenantGroup.objects.all(),
         required=False,
         null_option='None',
-        label=_('Tenant group'),
+        label=_('租户分组'),
         fetch_trigger='open'
     )
     tenant_id = DynamicModelMultipleChoiceField(
@@ -43,6 +43,6 @@ class TenancyFilterForm(forms.Form):
         query_params={
             'group_id': '$tenant_group_id'
         },
-        label=_('Tenant'),
+        label=_('租户'),
         fetch_trigger='open'
     )

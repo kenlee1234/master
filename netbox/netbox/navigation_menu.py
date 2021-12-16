@@ -95,7 +95,7 @@ ORGANIZATION_MENU = Menu(
             label='网站',
             items=(
                 get_model_item('dcim', 'site', '站点'),
-                get_model_item('dcim', 'region', '范围'),
+                get_model_item('dcim', 'region', '地区'),
                 get_model_item('dcim', 'sitegroup', '站点分组'),
                 get_model_item('dcim', 'location', '地址'),
             ),
@@ -108,7 +108,7 @@ ORGANIZATION_MENU = Menu(
                 get_model_item('dcim', 'rackreservation', '保留'),
                 MenuItem(
                     link='dcim:rack_elevation_list',
-                    link_text='迭代',
+                    link_text='架构图',
                     permissions=['dcim.view_rack']
                 ),
             ),
@@ -148,7 +148,7 @@ DEVICES_MENU = Menu(
             items=(
                 get_model_item('dcim', 'interface', '交互', actions=['import']),
                 get_model_item('dcim', 'frontport', '前段端口', actions=['import']),
-                get_model_item('dcim', 'rearport', '后端端口', actions=['import']),
+                get_model_item('dcim', 'rearport', '后段端口', actions=['import']),
                 get_model_item('dcim', 'consoleport', '控制台端口', actions=['import']),
                 get_model_item('dcim', 'consoleserverport', '控制台服务端口', actions=['import']),
                 get_model_item('dcim', 'powerport', '电源端口', actions=['import']),
@@ -214,9 +214,9 @@ IPAM_MENU = Menu(
             ),
         ),
         MenuGroup(
-            label='可验证随机公钥密码',
+            label='虚拟路由和转发',
             items=(
-                get_model_item('ipam', 'vrf', '可验证随机公钥密码'),
+                get_model_item('ipam', 'vrf', '虚拟路由和转发'),
                 get_model_item('ipam', 'routetarget', '路由目标'),
             ),
         ),
@@ -241,7 +241,7 @@ VIRTUALIZATION_MENU = Menu(
     icon_class='mdi mdi-monitor',
     groups=(
         MenuGroup(
-            label='Virtual Machines',
+            label='虚拟机',
             items=(
                 get_model_item('virtualization', 'virtualmachine', '虚拟机'),
                 get_model_item('virtualization', 'vminterface', '交互', actions=['import']),
@@ -270,10 +270,10 @@ CIRCUITS_MENU = Menu(
             ),
         ),
         MenuGroup(
-            label='供应商',
+            label='运营商',
             items=(
-                get_model_item('circuits', 'provider', '供应商'),
-                get_model_item('circuits', 'providernetwork', '供应商网络'),
+                get_model_item('circuits', 'provider', '运营商'),
+                get_model_item('circuits', 'providernetwork', '运营商网络'),
             ),
         ),
     ),

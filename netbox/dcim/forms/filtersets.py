@@ -112,13 +112,13 @@ class RegionFilterForm(BootstrapMixin, CustomFieldModelFilterForm):
     ]
     q = forms.CharField(
         required=False,
-        widget=forms.TextInput(attrs={'placeholder': _('All Fields')}),
-        label=_('Search')
+        widget=forms.TextInput(attrs={'placeholder': _('所有字段')}),
+        label=_('搜索')
     )
     parent_id = DynamicModelMultipleChoiceField(
         queryset=Region.objects.all(),
         required=False,
-        label=_('Parent region'),
+        label=_('所属地区'),
         fetch_trigger='open'
     )
 
@@ -131,13 +131,13 @@ class SiteGroupFilterForm(BootstrapMixin, CustomFieldModelFilterForm):
     ]
     q = forms.CharField(
         required=False,
-        widget=forms.TextInput(attrs={'placeholder': _('All Fields')}),
-        label=_('Search')
+        widget=forms.TextInput(attrs={'placeholder': _('所有字段')}),
+        label=_('搜索')
     )
     parent_id = DynamicModelMultipleChoiceField(
         queryset=SiteGroup.objects.all(),
         required=False,
-        label=_('Parent group'),
+        label=_('所属分组'),
         fetch_trigger='open'
     )
 
@@ -152,24 +152,25 @@ class SiteFilterForm(BootstrapMixin, TenancyFilterForm, CustomFieldModelFilterFo
     ]
     q = forms.CharField(
         required=False,
-        widget=forms.TextInput(attrs={'placeholder': _('All Fields')}),
-        label=_('Search')
+        widget=forms.TextInput(attrs={'placeholder': _('所有字段')}),
+        label=_('搜索')
     )
     status = forms.MultipleChoiceField(
         choices=SiteStatusChoices,
         required=False,
         widget=StaticSelectMultiple(),
+        label=_('状态')
     )
     region_id = DynamicModelMultipleChoiceField(
         queryset=Region.objects.all(),
         required=False,
-        label=_('Region'),
+        label=_('地区'),
         fetch_trigger='open'
     )
     group_id = DynamicModelMultipleChoiceField(
         queryset=SiteGroup.objects.all(),
         required=False,
-        label=_('Site group'),
+        label=_('站点分组'),
         fetch_trigger='open'
     )
     tag = TagFilterField(model)
@@ -179,19 +180,19 @@ class LocationFilterForm(BootstrapMixin, CustomFieldModelFilterForm):
     model = Location
     q = forms.CharField(
         required=False,
-        widget=forms.TextInput(attrs={'placeholder': _('All Fields')}),
-        label=_('Search')
+        widget=forms.TextInput(attrs={'placeholder': _('所有字段')}),
+        label=_('搜索')
     )
     region_id = DynamicModelMultipleChoiceField(
         queryset=Region.objects.all(),
         required=False,
-        label=_('Region'),
+        label=_('地区'),
         fetch_trigger='open'
     )
     site_group_id = DynamicModelMultipleChoiceField(
         queryset=SiteGroup.objects.all(),
         required=False,
-        label=_('Site group'),
+        label=_('站点分组'),
         fetch_trigger='open'
     )
     site_id = DynamicModelMultipleChoiceField(
@@ -201,7 +202,7 @@ class LocationFilterForm(BootstrapMixin, CustomFieldModelFilterForm):
             'region_id': '$region_id',
             'group_id': '$site_group_id',
         },
-        label=_('Site'),
+        label=_('站点'),
         fetch_trigger='open'
     )
     parent_id = DynamicModelMultipleChoiceField(
@@ -211,7 +212,7 @@ class LocationFilterForm(BootstrapMixin, CustomFieldModelFilterForm):
             'region_id': '$region_id',
             'site_id': '$site_id',
         },
-        label=_('Parent'),
+        label=_('所属地址'),
         fetch_trigger='open'
     )
 
@@ -223,8 +224,8 @@ class RackRoleFilterForm(BootstrapMixin, CustomFieldModelFilterForm):
     ]
     q = forms.CharField(
         required=False,
-        widget=forms.TextInput(attrs={'placeholder': _('All Fields')}),
-        label=_('Search')
+        widget=forms.TextInput(attrs={'placeholder': _('所有字段')}),
+        label=_('搜索')
     )
 
 
@@ -240,13 +241,13 @@ class RackFilterForm(BootstrapMixin, TenancyFilterForm, CustomFieldModelFilterFo
     ]
     q = forms.CharField(
         required=False,
-        widget=forms.TextInput(attrs={'placeholder': _('All Fields')}),
-        label=_('Search')
+        widget=forms.TextInput(attrs={'placeholder': _('所有字段')}),
+        label=_('搜索')
     )
     region_id = DynamicModelMultipleChoiceField(
         queryset=Region.objects.all(),
         required=False,
-        label=_('Region'),
+        label=_('地区'),
         fetch_trigger='open'
     )
     site_id = DynamicModelMultipleChoiceField(
@@ -255,7 +256,7 @@ class RackFilterForm(BootstrapMixin, TenancyFilterForm, CustomFieldModelFilterFo
         query_params={
             'region_id': '$region_id'
         },
-        label=_('Site'),
+        label=_('站点'),
         fetch_trigger='open'
     )
     location_id = DynamicModelMultipleChoiceField(
@@ -265,36 +266,41 @@ class RackFilterForm(BootstrapMixin, TenancyFilterForm, CustomFieldModelFilterFo
         query_params={
             'site_id': '$site_id'
         },
-        label=_('Location'),
+        label=_('地址'),
         fetch_trigger='open'
     )
     status = forms.MultipleChoiceField(
         choices=RackStatusChoices,
         required=False,
-        widget=StaticSelectMultiple()
+        widget=StaticSelectMultiple(),
+        label=_('状态')
     )
     type = forms.MultipleChoiceField(
         choices=RackTypeChoices,
         required=False,
-        widget=StaticSelectMultiple()
+        widget=StaticSelectMultiple(),
+        label=_('类型')
     )
     width = forms.MultipleChoiceField(
         choices=RackWidthChoices,
         required=False,
-        widget=StaticSelectMultiple()
+        widget=StaticSelectMultiple(),
+        label=_('宽度')
     )
     role_id = DynamicModelMultipleChoiceField(
         queryset=RackRole.objects.all(),
         required=False,
         null_option='None',
-        label=_('Role'),
+        label=_('规则'),
         fetch_trigger='open'
     )
     serial = forms.CharField(
-        required=False
+        required=False,
+        label=_('序列号')
     )
     asset_tag = forms.CharField(
-        required=False
+        required=False,
+        label=_('资产标签')
     )
     tag = TagFilterField(model)
 
@@ -327,13 +333,13 @@ class RackReservationFilterForm(BootstrapMixin, TenancyFilterForm, CustomFieldMo
     ]
     q = forms.CharField(
         required=False,
-        widget=forms.TextInput(attrs={'placeholder': _('All Fields')}),
-        label=_('Search')
+        widget=forms.TextInput(attrs={'placeholder': _('所有字段')}),
+        label=_('搜索')
     )
     region_id = DynamicModelMultipleChoiceField(
         queryset=Region.objects.all(),
         required=False,
-        label=_('Region'),
+        label=_('地区'),
         fetch_trigger='open'
     )
     site_id = DynamicModelMultipleChoiceField(
@@ -342,20 +348,20 @@ class RackReservationFilterForm(BootstrapMixin, TenancyFilterForm, CustomFieldMo
         query_params={
             'region_id': '$region_id'
         },
-        label=_('Site'),
+        label=_('站点'),
         fetch_trigger='open'
     )
     location_id = DynamicModelMultipleChoiceField(
         queryset=Location.objects.prefetch_related('site'),
         required=False,
-        label=_('Location'),
+        label=_('地址'),
         null_option='None',
         fetch_trigger='open'
     )
     user_id = DynamicModelMultipleChoiceField(
         queryset=User.objects.all(),
         required=False,
-        label=_('User'),
+        label=_('用户'),
         widget=APISelectMultiple(
             api_url='/api/users/users/',
         ),

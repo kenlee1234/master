@@ -1,7 +1,7 @@
 {% extends 'base/layout.html' %}
 {% load helpers %}
 
-{% block title %}Reports{% endblock %}
+{% block title %}报告列表{% endblock %}
 
 {% block content %}
     <div class="row">
@@ -14,10 +14,10 @@
                             <table class="table table-hover table-headings reports">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Status</th>
-                                        <th>Description</th>
-                                        <th class="text-end">Last Run</th>
+                                        <th>名称</th>
+                                        <th>状态</th>
+                                        <th>描述</th>
+                                        <th class="text-end">最后运行时间</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -35,7 +35,7 @@
                                                 {% if report.result %}
                                                     <a href="{% url 'extras:report_result' job_result_pk=report.result.pk %}">{{ report.result.created|annotated_date }}</a>
                                                 {% else %}
-                                                    <span class="text-muted">Never</span>
+                                                    <span class="text-muted">从未运行</span>
                                                 {% endif %}
                                             </td>
                                         <td>
@@ -45,9 +45,9 @@
                                                         {% csrf_token %}
                                                         <button type="submit" name="_run" class="btn btn-primary btn-sm">
                                                             {% if report.result %}
-                                                                <i class="mdi mdi-replay"></i> Run Again
+                                                                <i class="mdi mdi-replay"></i> 再次运行
                                                             {% else %}
-                                                                <i class="mdi mdi-play"></i> Run Report
+                                                                <i class="mdi mdi-play"></i> 运行报告
                                                             {% endif %}
                                                         </button>
                                                     </form>
@@ -76,10 +76,10 @@
                 {% endfor %}
             {% else %}
                 <div class="alert alert-info" role="alert">
-                    <h4 class="alert-heading">No Reports Found</h4>
-                    Reports should be saved to <code>{{ settings.REPORTS_ROOT }}</code>.
+                    <h4 class="alert-heading">没有找到报告</h4>
+                    报告应该储存在 <code>{{ settings.REPORTS_ROOT }}</code>。
                     <hr/>
-                    <small>This path can be changed by setting <code>REPORTS_ROOT</code> in NetBox's configuration.</small>
+                    <small>你可以在本软件配置的 <code>REPORTS_ROOT</code> 设定中改变上述路径。</small>
                 </div>
             {% endif %}
         </div>

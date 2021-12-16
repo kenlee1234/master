@@ -10,13 +10,13 @@ class TenantGroupFilterForm(BootstrapMixin, CustomFieldModelFilterForm):
     model = TenantGroup
     q = forms.CharField(
         required=False,
-        widget=forms.TextInput(attrs={'placeholder': _('All Fields')}),
-        label=_('Search')
+        widget=forms.TextInput(attrs={'placeholder': _('所有字段')}),
+        label=_('搜索')
     )
     parent_id = DynamicModelMultipleChoiceField(
         queryset=TenantGroup.objects.all(),
         required=False,
-        label=_('Parent group'),
+        label=_('所属分组'),
         fetch_trigger='open'
     )
 
@@ -29,14 +29,14 @@ class TenantFilterForm(BootstrapMixin, CustomFieldModelFilterForm):
     )
     q = forms.CharField(
         required=False,
-        widget=forms.TextInput(attrs={'placeholder': _('All Fields')}),
-        label=_('Search')
+        widget=forms.TextInput(attrs={'placeholder': _('所有字段')}),
+        label=_('搜索')
     )
     group_id = DynamicModelMultipleChoiceField(
         queryset=TenantGroup.objects.all(),
         required=False,
         null_option='None',
-        label=_('Group'),
+        label=_('分组'),
         fetch_trigger='open'
     )
     tag = TagFilterField(model)

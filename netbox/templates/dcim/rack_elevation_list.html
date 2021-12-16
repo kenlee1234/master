@@ -2,25 +2,25 @@
 {% load helpers %}
 {% load static %}
 
-{% block title %}Rack Elevations{% endblock %}
+{% block title %}架构图列表{% endblock %}
 
 {% block controls %}
     <div class="controls">
         <div class="control-group">
             <div class="btn-group btn-group-sm" role="group">
                 <select class="btn btn-sm btn-outline-secondary rack-view">
-                  <option value="images-and-labels" selected="selected">Images and Labels</option>
-                  <option value="images-only">Images only</option>
-                  <option value="labels-only">Labels only</option>
+                  <option value="images-and-labels" selected="selected">图像与标签</option>
+                  <option value="images-only">只有图像</option>
+                  <option value="labels-only">只有标签</option>
                 </select>
             </div>
             <div class="btn-group btn-group-sm" role="group">
-                <a href="{% url 'dcim:rack_elevation_list' %}{% querystring request face='front' %}" class="btn btn-outline-secondary{% if rack_face == 'front' %} active{% endif %}">Front</a>
-                <a href="{% url 'dcim:rack_elevation_list' %}{% querystring request face='rear' %}" class="btn btn-outline-secondary{% if rack_face == 'rear' %} active{% endif %}">Rear</a>
+                <a href="{% url 'dcim:rack_elevation_list' %}{% querystring request face='front' %}" class="btn btn-outline-secondary{% if rack_face == 'front' %} active{% endif %}">正面</a>
+                <a href="{% url 'dcim:rack_elevation_list' %}{% querystring request face='rear' %}" class="btn btn-outline-secondary{% if rack_face == 'rear' %} active{% endif %}">背面</a>
             </div>
             <div class="btn-group btn-group-sm" role="group">
-                <a href="{% url 'dcim:rack_elevation_list' %}{% querystring request reverse=None %}" class="btn btn-outline-secondary{% if not reverse %} active{% endif %}">Normal</a>
-                <a href="{% url 'dcim:rack_elevation_list' %}{% querystring request reverse='true' %}" class="btn btn-outline-secondary{% if reverse %} active{% endif %}">Reversed</a>
+                <a href="{% url 'dcim:rack_elevation_list' %}{% querystring request reverse=None %}" class="btn btn-outline-secondary{% if not reverse %} active{% endif %}">正常</a>
+                <a href="{% url 'dcim:rack_elevation_list' %}{% querystring request reverse='true' %}" class="btn btn-outline-secondary{% if reverse %} active{% endif %}">保留</a>
             </div>
         </div>
     </div>
@@ -60,7 +60,7 @@
           <br />
           {% include 'inc/paginator.html' %}
       {% else %}
-          <p>No Racks Found</p>
+          <p>没有找到架构图列表</p>
       {% endif %}
     </div>
 

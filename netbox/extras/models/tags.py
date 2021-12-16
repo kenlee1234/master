@@ -28,6 +28,8 @@ class Tag(ChangeLoggedModel, TagBase):
 
     class Meta:
         ordering = ['name']
+        verbose_name = '标签'
+        verbose_name_plural = '标签列表'
 
     def get_absolute_url(self):
         return reverse('extras:tag', args=[self.pk])

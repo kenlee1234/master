@@ -82,6 +82,8 @@ class ObjectChange(BigIDModel):
 
     class Meta:
         ordering = ['-time']
+        verbose_name = '变更日志'
+        verbose_name_plural = '变更日志列表'
 
     def __str__(self):
         return '{} {} {} by {}'.format(

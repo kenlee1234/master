@@ -99,7 +99,7 @@ class TagFilterField(forms.MultipleChoiceField):
             ]
 
         # Choices are fetched each time the form is initialized
-        super().__init__(label='Tags', choices=get_choices, required=False, *args, **kwargs)
+        super().__init__(label='标签', choices=get_choices, required=False, *args, **kwargs)
 
 
 class LaxURLField(forms.URLField):

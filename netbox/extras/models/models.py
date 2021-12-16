@@ -126,6 +126,8 @@ class Webhook(ChangeLoggedModel):
     class Meta:
         ordering = ('name',)
         unique_together = ('payload_url', 'type_create', 'type_update', 'type_delete',)
+        verbose_name = '微服务API'
+        verbose_name_plural = '微服务API列表'
 
     def __str__(self):
         return self.name
@@ -222,6 +224,8 @@ class CustomLink(ChangeLoggedModel):
 
     class Meta:
         ordering = ['group_name', 'weight', 'name']
+        verbose_name = '自定义链接'
+        verbose_name_plural = '自定义链接列表'
 
     def __str__(self):
         return self.name
@@ -275,6 +279,8 @@ class ExportTemplate(ChangeLoggedModel):
         unique_together = [
             ['content_type', 'name']
         ]
+        verbose_name = '导出模板'
+        verbose_name_plural = '导出模板列表'
 
     def __str__(self):
         return f"{self.content_type}: {self.name}"
@@ -440,7 +446,8 @@ class JournalEntry(ChangeLoggedModel):
 
     class Meta:
         ordering = ('-created',)
-        verbose_name_plural = 'journal entries'
+        verbose_name = '分录'
+        verbose_name_plural = '分录列表'
 
     def __str__(self):
         created = timezone.localtime(self.created)

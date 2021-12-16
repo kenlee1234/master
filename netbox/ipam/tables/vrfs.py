@@ -73,7 +73,7 @@ class RouteTargetTable(BaseTable):
     )
     description = tables.Column(
         verbose_name='描述'
-    )   
+    )
     tags = TagColumn(
         url_name='ipam:vrf_list'
     )

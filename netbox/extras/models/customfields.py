@@ -111,6 +111,8 @@ class CustomField(ChangeLoggedModel):
 
     class Meta:
         ordering = ['weight', 'name']
+        verbose_name = '自定义字段'
+        verbose_name_plural = '自定义字段列表'
 
     def __str__(self):
         return self.label or self.name.replace('_', ' ').capitalize()

@@ -89,7 +89,6 @@ class Tenant(PrimaryModel):
         verbose_name = '租户'
         verbose_name_plural = '租户列表'
 
-
     def __str__(self):
         return self.name
 

@@ -85,7 +85,7 @@ class SiteTable(BaseTable):
     )
     region = tables.Column(
         linkify=True,
-        verbose_name='区域'
+        verbose_name='地区'
     )
     group = tables.Column(
         linkify=True,

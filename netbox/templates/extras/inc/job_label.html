@@ -1,13 +1,13 @@
 {% if result.status == 'failed' %}
-    <span class="badge bg-danger">Failed</span>
+    <span class="badge bg-danger">失败</span>
 {% elif result.status == 'errored' %}
-    <span class="badge bg-danger">Errored</span>
+    <span class="badge bg-danger">错误</span>
 {% elif result.status == 'pending' %}
-    <span class="badge bg-info">Pending</span>
+    <span class="badge bg-info">等待中</span>
 {% elif result.status == 'running' %}
-    <span class="badge bg-warning">Running</span>
+    <span class="badge bg-warning">运行中</span>
 {% elif result.status == 'completed' %}
-    <span class="badge bg-success">Completed</span>
+    <span class="badge bg-success">完成</span>
 {% else %}
-    <span class="badge bg-secondary">N/A</span>
+    <span class="badge bg-secondary">不适用</span>
 {% endif %}

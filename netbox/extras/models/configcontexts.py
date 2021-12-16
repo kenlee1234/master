@@ -102,6 +102,8 @@ class ConfigContext(ChangeLoggedModel):
 
     class Meta:
         ordering = ['weight', 'name']
+        verbose_name = '配置内容'
+        verbose_name_plural = '配置内容列表'
 
     def __str__(self):
         return self.name

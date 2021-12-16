@@ -1,7 +1,7 @@
 {% extends 'base/layout.html' %}
 {% load helpers %}
 
-{% block title %}Scripts{% endblock %}
+{% block title %}脚本列表{% endblock %}
 
 {% block content %}
     <div class="row">
@@ -13,9 +13,9 @@
                         <thead>
                             <tr>
                                 <th>名称</th>
-                                <th>Status</th>
-                                <th>Description</th>
-                                <th class="text-end">Last Run</th>
+                                <th>状态</th>
+                                <th>描述</th>
+                                <th class="text-end">最后运行时间</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -33,7 +33,7 @@
                                             <a href="{% url 'extras:script_result' job_result_pk=script.result.pk %}">{{ script.result.created|annotated_date }}</a>
                                         </td>
                                     {% else %}
-                                        <td class="text-end text-muted">Never</td>
+                                        <td class="text-end text-muted">从未运行</td>
                                     {% endif %}
                                 </tr>
                             {% endfor %}
@@ -42,10 +42,10 @@
                 {% endfor %}
             {% else %}
                 <div class="alert alert-info">
-                    <h4 class="alert-heading">No Scripts Found</h4>
-                    Scripts should be saved to <code>{{ settings.SCRIPTS_ROOT }}</code>.
+                    <h4 class="alert-heading">没有找到脚本</h4>
+                    脚本应该储存在 <code>{{ settings.SCRIPTS_ROOT }}</code>。
                     <hr/>
-                    This path can be changed by setting <code>SCRIPTS_ROOT</code> in NetBox's configuration.
+                    <small>你可以在本软件配置的 <code>SCRIPTS_ROOT</code> 设定中改变上述路径。</small>
                 </div>
             {% endif %}
         </div>
